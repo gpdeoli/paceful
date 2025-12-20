@@ -1,7 +1,7 @@
 package com.g3tech.paceful.di
 
-import com.g3tech.paceful.routing.Navigator
-import com.g3tech.paceful.routing.NavigatorImpl
+import com.g3tech.paceful.ui.navigation.Navigator
+import com.g3tech.paceful.ui.navigation.NavigatorImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

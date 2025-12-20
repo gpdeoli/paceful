@@ -1,7 +1,7 @@
 package com.g3tech.paceful.data
 
-import com.g3tech.paceful.db.daos.StudyDao
-import com.g3tech.paceful.domain.entities.Study
+import com.g3tech.paceful.data.db.daos.StudyDao
+import com.g3tech.paceful.domain.model.Study
 import javax.inject.Inject
 
 

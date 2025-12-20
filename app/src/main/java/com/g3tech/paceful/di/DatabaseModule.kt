@@ -2,8 +2,8 @@ package com.g3tech.paceful.di
 
 import android.content.Context
 import androidx.room.Room
-import com.g3tech.paceful.db.PacefulDatabase
-import com.g3tech.paceful.db.callbacks.PrepopulateStudyStatusCallback
+import com.g3tech.paceful.data.db.AppDatabase
+import com.g3tech.paceful.data.db.callbacks.PrepopulateStudyStatusCallback
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,14 +20,14 @@ object DatabaseModule {
     fun provideAppDatabase(
         @ApplicationContext context: Context,
         callback: PrepopulateStudyStatusCallback
-    ): PacefulDatabase {
-        return Room.databaseBuilder(context, PacefulDatabase::class.java, "paceful_database")
+    ): AppDatabase {
+        return Room.databaseBuilder(context, AppDatabase::class.java, "paceful_database")
             .addCallback(callback).build()
     }
 
     @Provides
-    fun provideStudyDao(database: PacefulDatabase) = database.studyDao()
+    fun provideStudyDao(database: AppDatabase) = database.studyDao()
 
     @Provides
-    fun provideStudyStatusDao(database: PacefulDatabase) = database.studyStatusDao()
+    fun provideStudyStatusDao(database: AppDatabase) = database.studyStatusDao()
 }
