@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Paceful</string>
+    <string name="dawn_greetings">Up yet?</string>
+    <string name="morning_greetings">Good Morning</string>
+    <string name="afternoon_greetings">Good Afternoon</string>
+    <string name="evening_greetings">Good Night</string>
+    <string name="christmas_greetings">Merry Christmas!</string>
+    <string name="christmas_eve_greetings">Merry Christmas Eve!</string>
+    <string name="new_year_greetings">Happy New Year!</string>
+
+    <string name="new_study">New study</string>
 </resources>

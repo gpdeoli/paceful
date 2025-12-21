@@ -15,10 +15,11 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.g3tech.paceful.ui.home.components.Greeting
 import com.g3tech.paceful.ui.home.components.StudyCard
-import kotlinx.serialization.Serializable
+import com.g3tech.paceful.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,8 +27,8 @@ fun HomeScreen() {
     Scaffold(
         floatingActionButton = {
             ExtendedFloatingActionButton(onClick = {}) {
-                Icon(imageVector = Icons.Rounded.Add, contentDescription = "Novo estudo")
-                Text(text = "Novo estudo")
+                Icon(imageVector = Icons.Rounded.Add, contentDescription = stringResource(R.string.new_study))
+                Text(text = stringResource(R.string.new_study))
             }
         },
         topBar = {

@@ -6,9 +6,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.g3tech.paceful.R
 import java.time.LocalDateTime
 import java.time.Month
 
@@ -20,24 +22,29 @@ fun Greeting(
 ) {
     val greeting : String =
         when (dateTime.month) {
+            Month.DECEMBER if dateTime.dayOfMonth == 24 -> {
+                stringResource(R.string.christmas_eve_greetings)
+            }
             Month.DECEMBER if dateTime.dayOfMonth == 25 -> {
-                "Feliz Natal"
-
+                stringResource(R.string.christmas_greetings)
             }
             Month.DECEMBER if dateTime.dayOfMonth == 31 -> {
-                "Feliz ano novo"
+                stringResource(R.string.new_year_greetings)
             }
             else -> {
                 when (dateTime.hour) {
-                    in 0..11 -> {
-                        "Bom dia"
+                    in 0..6 -> {
+                        stringResource(R.string.dawn_greetings)
                     }
-
+                    in 7..11 -> {
+                        stringResource(R.string.morning_greetings)
+                    }
                     in 12..19 -> {
-                        "Boa tarde"
+                        stringResource(R.string.afternoon_greetings)
                     }
-
-                    else -> "Boa noite"
+                    else -> {
+                        stringResource(R.string.evening_greetings)
+                    }
                 }
             }
         }

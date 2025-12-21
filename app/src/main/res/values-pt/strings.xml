@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Paceful</string>
+    <string name="dawn_greetings">Ainda de pé?</string>
+    <string name="morning_greetings">Bom Dia</string>
+    <string name="afternoon_greetings">Boa Tarde</string>
+    <string name="evening_greetings">Boa Noite</string>
+    <string name="christmas_greetings">Feliz Natal!</string>
+    <string name="christmas_eve_greetings">Feliz Véspera de Natal!</string>
+    <string name="new_year_greetings">Feliz Ano Novo!</string>
+
+    <string name="new_study">Novo estudo</string>
+</resources>
