@@ -1,10 +1,9 @@
 package com.g3tech.paceful.ui.navigation
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
-sealed interface Routes {
-    data object PopBack : Routes
-
+sealed interface Routes : NavKey {
     @Serializable
-    data object HomeScreenRoute : Routes
+    data object HomeScreen : Routes
 }

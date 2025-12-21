@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.g3tech.paceful.ui.home.components.Greeting
 import com.g3tech.paceful.ui.home.components.StudyCard
+import kotlinx.serialization.Serializable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

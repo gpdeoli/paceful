@@ -7,11 +7,9 @@ import com.g3tech.paceful.data.db.entities.StudyStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import javax.inject.Provider
 
-class PrepopulateStudyStatusCallback @Inject constructor(
-    private val studyStatusDaoProvider: Provider<StudyStatusDao>
+class PrepopulateStudyStatusCallback(
+    private val studyStatusDaoProvider : () -> StudyStatusDao
 ) : RoomDatabase.Callback() {
 
     companion object {
@@ -32,7 +30,7 @@ class PrepopulateStudyStatusCallback @Inject constructor(
     }
 
     private fun prepopulateStudyStatuses() {
-        val studyStatusDao = studyStatusDaoProvider.get()
+        val studyStatusDao = studyStatusDaoProvider()
         studyStatusDao.insertAll(STUDY_STATUS_LIST)
     }
 }

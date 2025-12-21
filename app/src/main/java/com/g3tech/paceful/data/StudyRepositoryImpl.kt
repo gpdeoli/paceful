@@ -2,13 +2,14 @@ package com.g3tech.paceful.data
 
 import com.g3tech.paceful.data.db.daos.StudyDao
 import com.g3tech.paceful.domain.model.Study
-import javax.inject.Inject
+import com.g3tech.paceful.domain.repositories.StudyRepository
 
 
-class StudiesRepository @Inject constructor(
+class StudyRepositoryImpl(
     private val studyDao: StudyDao
-) {
-    suspend fun registerStudy(study: Study) {
+) : StudyRepository {
+
+    override suspend fun registerStudy(study: Study) {
         val formattedStudy = study.toDbEntity()
         val formattedTopics = study.topics?.map { it.toDbEntity() }
 
