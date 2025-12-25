@@ -63,9 +63,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    // Google Fonts and Icons
+    // Google Fonts
     implementation(libs.androidx.ui.text.google.fonts)
-    implementation(libs.androidx.compose.material.icons.core)
 
     implementation(libs.play.services.base)
 

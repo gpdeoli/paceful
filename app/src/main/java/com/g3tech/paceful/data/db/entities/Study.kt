@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import java.util.Date
+import java.time.LocalDate
 
 @Entity(
     indices = [Index(value = ["status"])],
@@ -20,6 +20,6 @@ data class Study(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val subject: String,
     val status: Int,
-    val deadline: Date,
-    @ColumnInfo(name = "start_date") val startDate: Date = Date()
+    val deadline: LocalDate,
+    @ColumnInfo(name = "start_date") val startDate: LocalDate = LocalDate.now()
 )

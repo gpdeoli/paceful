@@ -10,4 +10,18 @@
     <string name="new_year_greetings">Feliz Ano Novo!</string>
 
     <string name="new_study">Novo estudo</string>
+    <string name="view_all">Ver todos</string>
+    <string name="pending_title">Pendente</string>
+    <string name="in_progress_title">Em Andamento</string>
+    <string name="scheduled_title">Agendado</string>
+    <string name="done_title">Concluído</string>
+
+    <string name="due">Prazo</string>
+    <string name="overdue">Atrasado</string>
+    <string name="topics">Tópicos</string>
+    <string name="and_more">e mais</string>
+
+    <string name="no_topics">Sem tópicos</string>
+
+    <string name="today">Hoje</string>
 </resources>

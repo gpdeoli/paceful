@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import java.util.Date
+import java.time.LocalDate
 
 @Entity(
     indices = [
@@ -24,5 +24,5 @@ data class Topic(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,
     @ColumnInfo(name = "study_id") var studyId: Int,
-    val deadline: Date? = null,
+    val deadline: LocalDate? = null,
 )

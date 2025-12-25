@@ -9,4 +9,18 @@
     <string name="new_year_greetings">Happy New Year!</string>
 
     <string name="new_study">New study</string>
+    <string name="view_all">View all</string>
+    <string name="pending_title">Pending</string>
+    <string name="in_progress_title">In Progress</string>
+    <string name="scheduled_title">Scheduled</string>
+    <string name="done_title">Done</string>
+
+    <string name="due">Due</string>
+    <string name="overdue">Overdue</string>
+    <string name="topics">Topics</string>
+    <string name="and_more">and more</string>
+
+    <string name="no_topics">No topics registered</string>
+
+    <string name="today">Today</string>
 </resources>
