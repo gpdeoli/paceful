@@ -19,7 +19,7 @@ interface StudyDao {
     @Transaction
     suspend fun insertStudyWithTopics(study: Study, topics: List<Topic>) {
         val studyId = insertStudy(study)
-        topics.forEach { topic -> topic.studyId = studyId.toInt() }
+        topics.forEach { topic -> topic.studyId = studyId }
         insertTopics(topics)
     }
 

@@ -43,7 +43,7 @@ import java.time.LocalDate
 fun HomeScreen() {
     val pendingStudies = listOf(
         Study(
-            subject = "Advanced Mathematics I",
+            name = "Advanced Mathematics I",
             status = StudyStatus.PENDING,
             topics = listOf(
                 Topic(
@@ -63,10 +63,12 @@ fun HomeScreen() {
                     deadline = null
                 )
             ),
+            subject = null,
             deadline = LocalDate.of(2025, 12, 31)
         ),
         Study(
-            subject = "Advanced Mathematics I",
+            subject = null,
+            name = "Advanced Mathematics I",
             status = StudyStatus.PENDING,
             topics = emptyList(),
             deadline = LocalDate.now()
@@ -74,7 +76,8 @@ fun HomeScreen() {
     )
     val inProgressStudies = List(5) {
         Study(
-            subject = "In Progress Study ${it + 1}",
+            name = "In Progress Study ${it + 1}",
+            subject = null,
             status = StudyStatus.IN_PROGRESS,
             topics = emptyList(),
             deadline = LocalDate.now()
@@ -82,7 +85,8 @@ fun HomeScreen() {
     }
     val doneStudies = List(5) {
         Study(
-            subject = "Done Study ${it + 1}",
+            name = "Done Study ${it + 1}",
+            subject = null,
             status = StudyStatus.DONE,
             topics = emptyList(),
             deadline = LocalDate.of(2025, 12, 31)
@@ -90,7 +94,8 @@ fun HomeScreen() {
     }
     val scheduledStudies = List(5) {
         Study(
-            subject = "Scheduled Study ${it + 1}",
+            name = "Scheduled Study ${it + 1}",
+            subject = null,
             status = StudyStatus.SCHEDULED,
             topics = emptyList(),
             deadline = LocalDate.now()

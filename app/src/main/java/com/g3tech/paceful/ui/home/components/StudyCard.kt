@@ -68,7 +68,7 @@ fun StudyCard(study: Study, isCardOpen: Boolean = true) {
                         .padding(start = 2.dp),
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    text = study.subject,
+                    text = study.name,
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
                 )
                 StudyStatusBadge(status = study.status)
@@ -175,7 +175,8 @@ private fun getLocalizedDateFormatter(): DateTimeFormatter {
 @Composable
 fun StudyCardPreview() {
     val study = Study(
-        subject = "Advanced Mathematics",
+        subject = null,
+        name = "Advanced Mathematics",
         status = StudyStatus.IN_PROGRESS,
         topics = listOf(
             Topic(

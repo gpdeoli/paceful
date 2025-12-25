@@ -8,18 +8,24 @@ import androidx.room.PrimaryKey
 import java.time.LocalDate
 
 @Entity(
-    indices = [Index(value = ["status"])],
+    indices = [Index(value = ["status"]), Index(value = ["subject"])],
     tableName = "study",
     foreignKeys = [ForeignKey(
         entity = StudyStatus::class,
         parentColumns = ["id"],
         childColumns = ["status"]
+    ), ForeignKey(
+        entity = Subject::class,
+        parentColumns = ["id"],
+        childColumns = ["subject"],
+        onDelete = ForeignKey.SET_NULL
     )]
 )
 data class Study(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val subject: String,
-    val status: Int,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val name: String,
+    val status: Long,
+    val subject: Long?,
     val deadline: LocalDate,
     @ColumnInfo(name = "start_date") val startDate: LocalDate = LocalDate.now()
 )

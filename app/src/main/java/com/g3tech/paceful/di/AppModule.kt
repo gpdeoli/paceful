@@ -10,7 +10,8 @@ import org.koin.dsl.module
 
 val appModule = module {
     single<AppDatabase> {
-        val callback = PrepopulateStudyStatusCallback(studyStatusDaoProvider = { get<AppDatabase>().studyStatusDao() })
+        val callback =
+            PrepopulateStudyStatusCallback(studyStatusDaoProvider = { get<AppDatabase>().studyStatusDao() })
         Room.databaseBuilder(
             androidContext(),
             AppDatabase::class.java,

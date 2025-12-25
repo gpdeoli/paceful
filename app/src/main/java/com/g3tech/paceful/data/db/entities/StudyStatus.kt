@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "study_status", indices = [Index(value = ["name"], unique = true)])
 data class StudyStatus(
-    @PrimaryKey val id: Int,
+    @PrimaryKey val id: Long,
     val name: String
 )

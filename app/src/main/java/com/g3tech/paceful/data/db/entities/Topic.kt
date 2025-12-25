@@ -21,8 +21,8 @@ import java.time.LocalDate
         )]
 )
 data class Topic(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String,
-    @ColumnInfo(name = "study_id") var studyId: Int,
+    @ColumnInfo(name = "study_id") var studyId: Long,
     val deadline: LocalDate? = null,
 )

@@ -8,10 +8,11 @@ import com.g3tech.paceful.data.db.daos.StudyDao
 import com.g3tech.paceful.data.db.daos.StudyStatusDao
 import com.g3tech.paceful.data.db.entities.Study
 import com.g3tech.paceful.data.db.entities.StudyStatus
+import com.g3tech.paceful.data.db.entities.Subject
 import com.g3tech.paceful.data.db.entities.Topic
 
 @Database(
-    entities = [Study::class, Topic::class, StudyStatus::class],
+    entities = [Subject::class, Study::class, Topic::class, StudyStatus::class],
     version = 1,
     exportSchema = false
 )
