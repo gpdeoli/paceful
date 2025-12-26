@@ -9,6 +9,8 @@
     <string name="christmas_eve_greetings">Feliz Véspera de Natal!</string>
     <string name="new_year_greetings">Feliz Ano Novo!</string>
 
+    <string name="no_topics">Sem tópicos</string>
+    <string name="new_subject">Nova matéria</string>
     <string name="new_study">Novo estudo</string>
     <string name="view_all">Ver todos</string>
     <string name="pending_title">Pendente</string>
@@ -21,7 +23,7 @@
     <string name="topics">Tópicos</string>
     <string name="and_more">e mais</string>
 
-    <string name="no_topics">Sem tópicos</string>
 
     <string name="today">Hoje</string>
+
 </resources>
