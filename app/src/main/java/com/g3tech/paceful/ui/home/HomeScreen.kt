@@ -1,7 +1,6 @@
 package com.g3tech.paceful.ui.home
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,6 +11,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,6 +23,7 @@ import com.g3tech.paceful.ui.home.components.DashboardStats
 import com.g3tech.paceful.ui.home.components.Greeting
 import com.g3tech.paceful.ui.home.components.StatsValues
 import com.g3tech.paceful.ui.home.components.StudySection
+import com.g3tech.paceful.ui.shared.BottomAppBar
 import com.g3tech.paceful.ui.shared.FabItem
 import com.g3tech.paceful.ui.shared.FabMenu
 import com.g3tech.paceful.ui.theme.AppTheme
@@ -91,7 +92,10 @@ fun HomeScreen() {
             deadline = LocalDate.now()
         )
     }
+
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         floatingActionButton = {
             val fabMenuItems = listOf(
                 FabItem(
@@ -110,61 +114,65 @@ fun HomeScreen() {
         topBar = {
             TopAppBar(
                 title = { Greeting() },
-                scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+                scrollBehavior = scrollBehavior
             )
+        },
+        bottomBar = {
+            BottomAppBar()
         }
     ) { innerPadding ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
+                .padding(innerPadding),
+            contentPadding = PaddingValues(bottom = 80.dp)
         ) {
-            DashboardStats(
-                modifier = Modifier.padding(top = 12.dp, start = 12.dp, end = 12.dp),
-                values = StatsValues(
-                    inProgressValue = 10,
-                    scheduledValue = 3,
-                    pendingValue = 4,
-                    doneValue = 5
+            item {
+                DashboardStats(
+                    modifier = Modifier.padding(top = 12.dp, start = 12.dp, end = 12.dp),
+                    values = StatsValues(
+                        inProgressValue = 10,
+                        scheduledValue = 3,
+                        pendingValue = 4,
+                        doneValue = 5
+                    )
                 )
-            )
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentPadding = PaddingValues(bottom = 80.dp)
-            ) {
-                item {
-                    StudySection(
-                        title = "Pending",
-                        studies = pendingStudies,
-                        onViewAllClick = {}
-                    )
-                }
-                item {
-                    StudySection(
-                        title = "In Progress",
-                        studies = inProgressStudies,
-                        onViewAllClick = {}
-                    )
-                }
-                item {
-                    StudySection(
-                        title = "Scheduled",
-                        studies = scheduledStudies,
-                        onViewAllClick = {}
-                    )
-                }
-                item {
-                    StudySection(
-                        title = "Done",
-                        studies = doneStudies,
-                        onViewAllClick = {}
-                    )
-                }
+            }
+
+            item {
+                StudySection(
+                    title = "Matemática",
+                    description = "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
+                    studies = pendingStudies,
+                    onViewAllClick = {}
+                )
+            }
+            item {
+                StudySection(
+                    title = "In Progress",
+                    description = "Opa eai",
+                    studies = inProgressStudies,
+                    onViewAllClick = {}
+                )
+            }
+            item {
+                StudySection(
+                    title = "Scheduled",
+                    description = "Opa eai",
+                    studies = scheduledStudies,
+                    onViewAllClick = {}
+                )
+            }
+            item {
+                StudySection(
+                    title = "Done",
+                    description = "Opa eai",
+                    studies = doneStudies,
+                    onViewAllClick = {}
+                )
             }
         }
     }
-
 }
 
 @Preview(

@@ -12,7 +12,6 @@
     <string name="no_topics">Sem tópicos</string>
     <string name="new_subject">Nova matéria</string>
     <string name="new_study">Novo estudo</string>
-    <string name="view_all">Ver todos</string>
     <string name="pending_title">Pendente</string>
     <string name="in_progress_title">Em Andamento</string>
     <string name="scheduled_title">Agendado</string>
@@ -25,5 +24,5 @@
 
 
     <string name="today">Hoje</string>
-
+    <string name="view_more">Ver mais</string>
 </resources>
