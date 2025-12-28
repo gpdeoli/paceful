@@ -22,6 +22,10 @@
     <string name="topics">Tópicos</string>
     <string name="and_more">e mais</string>
 
+    <string name="urgent_section_title">Urgentes</string>
+    <string name="urgent_section_description">Estudos perto do prazo</string>
+    <string name="overdue_section_title">Atrasados</string>
+    <string name="overdue_section_description">Estudos que passaram do prazo</string>
 
     <string name="today">Hoje</string>
     <string name="view_more">Ver mais</string>

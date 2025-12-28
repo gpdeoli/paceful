@@ -5,6 +5,9 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.g3tech.paceful.domain.model.input.CreateStudy
+import com.g3tech.paceful.domain.model.Study as ModelStudy
+import com.g3tech.paceful.domain.model.StudyStatus as ModelStudyStatus
 import java.time.LocalDate
 
 @Entity(
@@ -28,4 +31,23 @@ data class Study(
     val subject: Long?,
     val deadline: LocalDate,
     @ColumnInfo(name = "start_date") val startDate: LocalDate = LocalDate.now()
-)
+) {
+    fun toModel() : ModelStudy {
+        return ModelStudy(
+            name = this.name,
+            status = ModelStudyStatus.entries.find { it.id == this.status } ?: ModelStudyStatus.PENDING,
+            deadline = deadline,
+            startDate = startDate
+        )
+    }
+}
+
+fun CreateStudy.toDbEntity(): Study {
+    return Study(
+        name = this.name,
+        status = this.status,
+        subject = this.subject,
+        deadline = this.deadline,
+        startDate = this.startDate
+    )
+}

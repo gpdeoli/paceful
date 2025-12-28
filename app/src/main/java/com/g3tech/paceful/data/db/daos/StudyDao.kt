@@ -4,9 +4,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import com.g3tech.paceful.data.db.entities.StudiesSummaryNumbers
 import com.g3tech.paceful.data.db.entities.Study
 import com.g3tech.paceful.data.db.entities.StudyDetails
+import com.g3tech.paceful.data.db.entities.SummaryStudy
 import com.g3tech.paceful.data.db.entities.Topic
+import com.g3tech.paceful.domain.model.StudiesSummary
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 
 @Dao
 interface StudyDao {
@@ -19,23 +26,42 @@ interface StudyDao {
     @Transaction
     suspend fun insertStudyWithTopics(study: Study, topics: List<Topic>) {
         val studyId = insertStudy(study)
-        topics.forEach { topic -> topic.studyId = studyId }
-        insertTopics(topics)
+        val linkedStudies = topics.map { topic -> topic.copy(studyId = studyId) }
+        insertTopics(linkedStudies)
     }
 
     @Transaction
-    @Query("SELECT * FROM study WHERE status = (SELECT id FROM study_status WHERE name = 'PENDING')")
-    suspend fun getPendingStudies(): List<StudyDetails>
+    @Query("SELECT * FROM study WHERE deadline < DATE('now') AND status IN (SELECT id FROM study_status WHERE name != 'DONE')")
+    suspend fun getUrgentStudies(): List<SummaryStudy>
 
     @Transaction
-    @Query("SELECT * FROM study WHERE status = (SELECT id FROM study_status WHERE name = 'IN PROGRESS')")
-    suspend fun getInProgressStudies(): List<StudyDetails>
+    @Query("SELECT * FROM study WHERE deadline > DATE('now') AND status IN (SELECT id FROM study_status WHERE name = 'DONE')")
+    suspend fun getOverdueStudies(): List<SummaryStudy>
 
     @Transaction
-    @Query("SELECT * FROM study WHERE status = (SELECT id FROM study_status WHERE name = 'DONE')")
-    suspend fun getDoneStudies(): List<StudyDetails>
+    @Query("""
+        SELECT * from study WHERE subject IN (:subjectsIds)
+    """)
+    suspend fun getStudiesWithSubjects(subjectsIds: List<Long>) : List<SummaryStudy> = coroutineScope {
+        val defferedStudies = subjectsIds.map { subjectsId ->
+            async {
+                getStudyWithSubject(subjectsId)
+            }
+        }
+        defferedStudies.awaitAll().flatten()
+    }
+
 
     @Transaction
-    @Query("SELECT * FROM study WHERE status = (SELECT id FROM study_status WHERE name = 'SCHEDULED')")
-    suspend fun getScheduledStudies(): List<StudyDetails>
+    @Query("""
+        SELECT * FROM study WHERE subject = :subjectId LIMIT 5
+    """)
+    suspend fun getStudyWithSubject(subjectId: Long): List<SummaryStudy>
+
+    @Transaction
+    @Query("""
+        SELECT COUNT(*) as value, status FROM study
+        GROUP BY status
+    """)
+    suspend fun getStudiesSummaryNumbers(): List<StudiesSummaryNumbers>
 }

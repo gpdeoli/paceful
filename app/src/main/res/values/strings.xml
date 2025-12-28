@@ -21,6 +21,11 @@
     <string name="topics">Topics</string>
     <string name="and_more">and more</string>
 
+    <string name="urgent_section_title">Urgents</string>
+    <string name="urgent_section_description">Studies with near deadlines</string>
+    <string name="overdue_section_title">Overdues</string>
+    <string name="overdue_section_description">Studies with expired deadlines</string>
+
     <string name="today">Today</string>
     <string name="view_more">View more</string>
 </resources>

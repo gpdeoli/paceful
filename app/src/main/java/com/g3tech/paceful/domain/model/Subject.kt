@@ -2,9 +2,8 @@ package com.g3tech.paceful.domain.model
 
 import java.time.LocalDate
 
-data class Study(
+data class Subject(
     val name: String,
-    val status: StudyStatus,
     val deadline: LocalDate,
-    val startDate: LocalDate = LocalDate.now()
+    val description: String?
 )

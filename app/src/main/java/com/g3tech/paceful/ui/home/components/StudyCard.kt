@@ -25,19 +25,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.g3tech.paceful.R
 import com.g3tech.paceful.domain.model.Study
-import com.g3tech.paceful.domain.model.StudyStatus
 import com.g3tech.paceful.domain.model.Topic
-import com.g3tech.paceful.ui.theme.AppTheme
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 @Composable
-fun StudyCard(study: Study, isCardOpen: Boolean = true) {
+fun StudyCard(study: Study, topics: List<Topic>?, isCardOpen: Boolean = true) {
     val dateFormatter = getLocalizedDateFormatter()
 
     val today = LocalDate.now()
@@ -113,14 +110,14 @@ fun StudyCard(study: Study, isCardOpen: Boolean = true) {
 
             HorizontalDivider(Modifier.padding(vertical = 12.dp))
 
-            val isTopicsEmpty = study.topics.isNullOrEmpty()
+            val isTopicsEmpty = topics.isNullOrEmpty()
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.Top
             ) {
                 val topicsLabel =
-                    if (isTopicsEmpty) stringResource(R.string.no_topics) else "${study.topics.size} ${
+                    if (isTopicsEmpty) stringResource(R.string.no_topics) else "${topics.size} ${
                         stringResource(R.string.topics).lowercase()
                     }"
                 Text(
@@ -140,12 +137,12 @@ fun StudyCard(study: Study, isCardOpen: Boolean = true) {
             }
 
             if (isCardOpen && !isTopicsEmpty) {
-                val itemsCount = if (study.topics.size > 3) 3 else study.topics.size
+                val itemsCount = if (topics.size > 3) 3 else topics.size
                 Column {
                     for (i in 0 until itemsCount) {
-                        val isThereMoreTopics = study.topics.size > 3 && i == 2
+                        val isThereMoreTopics = topics.size > 3 && i == 2
                         val textContent =
-                            if (isThereMoreTopics) "+${study.topics.size -2}" else "• ${study.topics[i].name}"
+                            if (isThereMoreTopics) "+${topics.size -2}" else "• ${topics[i].name}"
                         Text(
                             modifier = Modifier.padding(vertical = 2.dp),
                             text = textContent,
@@ -168,38 +165,5 @@ private fun getLocalizedDateFormatter(): DateTimeFormatter {
         } else {
             DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)
         }
-    }
-}
-
-@Preview(locale = "en")
-@Composable
-fun StudyCardPreview() {
-    val study = Study(
-        subject = null,
-        name = "Advanced Mathematics",
-        status = StudyStatus.IN_PROGRESS,
-        topics = listOf(
-            Topic(
-                name = "Calculus Integration",
-                deadline = LocalDate.now()
-            ),
-            Topic(
-                name = "Calculus Integration",
-                deadline = null
-            ),
-            Topic(
-                name = "Calculus Integration",
-                deadline = null
-            ),
-            Topic(
-                name = "Calculus Integration",
-                deadline = null
-            )
-        ),
-        deadline = LocalDate.of(2025, 12, 25)
-    )
-
-    AppTheme {
-        StudyCard(study)
     }
 }

@@ -5,7 +5,9 @@ import com.g3tech.paceful.data.StudyRepositoryImpl
 import com.g3tech.paceful.data.db.AppDatabase
 import com.g3tech.paceful.data.db.callbacks.PrepopulateStudyStatusCallback
 import com.g3tech.paceful.domain.repositories.StudyRepository
+import com.g3tech.paceful.ui.home.HomeViewModel
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 val appModule = module {
@@ -20,6 +22,8 @@ val appModule = module {
     }
 
     single<StudyRepository> {
-        StudyRepositoryImpl(get<AppDatabase>().studyDao())
+        StudyRepositoryImpl(get<AppDatabase>().studyDao(), get<AppDatabase>().subjectStatusDao())
     }
+
+    viewModelOf(::HomeViewModel)
 }

@@ -20,13 +20,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.g3tech.paceful.R
-import com.g3tech.paceful.domain.model.Study
+import com.g3tech.paceful.domain.model.StudySummary
 
 @Composable
 fun StudySection(
     title: String,
     description: String,
-    studies: List<Study>,
+    studies: List<StudySummary>,
     onViewAllClick: () -> Unit
 ) {
     Column(
@@ -64,8 +64,8 @@ fun StudySection(
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(studies) { study ->
-                StudyCard(study = study, true)
+            items(studies) { studySummary ->
+                StudyCard(study = studySummary.study, studySummary.topics)
             }
         }
     }
