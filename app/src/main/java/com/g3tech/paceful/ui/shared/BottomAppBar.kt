@@ -6,32 +6,44 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import com.g3tech.paceful.R
 
 @Composable
 fun BottomAppBar() {
-    NavigationBar() {
+    NavigationBar {
         NavigationBarItem(
             onClick = {},
             icon = {
                 Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.study_24),
-                    contentDescription = null
+                    imageVector = ImageVector.vectorResource(R.drawable.home_24),
+                    contentDescription = "home button"
                 )
             },
-            label = { Text("Estudos") },
+            label = { Text(stringResource(R.string.home)) },
             selected = true
         )
         NavigationBarItem(
             onClick = {},
             icon = {
                 Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.subject_24),
-                    contentDescription = null
+                    imageVector = ImageVector.vectorResource(R.drawable.study_24),
+                    contentDescription = "studies button"
                 )
             },
-            label =  { Text("Matérias") },
+            label = { Text(stringResource(R.string.studies)) },
+            selected = false
+        )
+        NavigationBarItem(
+            onClick = {},
+            icon = {
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.subject_24),
+                    contentDescription = "subjects button"
+                )
+            },
+            label =  { Text(stringResource(R.string.subjects)) },
             selected = false
         )
         NavigationBarItem(
@@ -39,10 +51,10 @@ fun BottomAppBar() {
             icon = {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.settings_24),
-                    contentDescription = null
+                    contentDescription = "settings button"
                 )
             },
-            label = { Text("Configurações") },
+            label = { Text(stringResource(R.string.settings)) },
             selected = false
         )
     }

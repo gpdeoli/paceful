@@ -9,6 +9,11 @@
     <string name="christmas_eve_greetings">Feliz Véspera de Natal!</string>
     <string name="new_year_greetings">Feliz Ano Novo!</string>
 
+    <string name="studies">Estudos</string>
+    <string name="subjects">Matérias</string>
+    <string name="settings">Configurações</string>
+    <string name="home">Home</string>
+
     <string name="no_topics">Sem tópicos</string>
     <string name="new_subject">Nova matéria</string>
     <string name="new_study">Novo estudo</string>
@@ -16,6 +21,11 @@
     <string name="in_progress_title">Em Andamento</string>
     <string name="scheduled_title">Agendado</string>
     <string name="done_title">Concluído</string>
+
+    <string name="no_studies_description">Você ainda não possui estudos cadastrados</string>
+    <string name="add_study_if_none">Cadastrar estudo</string>
+    <string name="add_subject_if_none">Cadastrar matéria</string>
+    <string name="or">Ou</string>
 
     <string name="due">Prazo</string>
     <string name="overdue">Atrasado</string>

@@ -29,8 +29,8 @@ class HomeViewModel(
             }.onFailure {
                 // TODO()
             }
+            _state.update { it.copy(isLoading = false) }
         }
-        _state.update { it.copy(isLoading = false) }
     }
 
     fun onEvent(event: HomeScreenEvent) {

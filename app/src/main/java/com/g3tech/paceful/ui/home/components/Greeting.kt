@@ -2,7 +2,6 @@ package com.g3tech.paceful.ui.home.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,7 +14,6 @@ import com.g3tech.paceful.R
 import java.time.LocalDateTime
 import java.time.Month
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun Greeting(
     dateTime: LocalDateTime = LocalDateTime.now(),

@@ -8,6 +8,11 @@
     <string name="christmas_eve_greetings">Merry Christmas Eve!</string>
     <string name="new_year_greetings">Happy New Year!</string>
 
+    <string name="studies">Studies</string>
+    <string name="subjects">Subjects</string>
+    <string name="settings">Settings</string>
+    <string name="home">Home</string>
+
     <string name="new_subject">New subject</string>
     <string name="new_study">New study</string>
     <string name="no_topics">No topics registered</string>
@@ -16,14 +21,19 @@
     <string name="scheduled_title">Scheduled</string>
     <string name="done_title">Done</string>
 
+    <string name="no_studies_description">You don\'t have studies registered yet</string>
+    <string name="add_study_if_none">Register new study</string>
+    <string name="add_subject_if_none">Register new subject</string>
+    <string name="or">Or</string>
+
     <string name="due">Due</string>
     <string name="overdue">Overdue</string>
     <string name="topics">Topics</string>
     <string name="and_more">and more</string>
 
-    <string name="urgent_section_title">Urgents</string>
+    <string name="urgent_section_title">Urgent</string>
     <string name="urgent_section_description">Studies with near deadlines</string>
-    <string name="overdue_section_title">Overdues</string>
+    <string name="overdue_section_title">Overdue</string>
     <string name="overdue_section_description">Studies with expired deadlines</string>
 
     <string name="today">Today</string>
