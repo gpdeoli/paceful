@@ -23,6 +23,7 @@
     <string name="done_title">Concluído</string>
 
     <string name="no_studies_description">Você ainda não possui estudos cadastrados</string>
+    <string name="no_studies_in_section">Sem estudos por aqui</string>
     <string name="add_study_if_none">Cadastrar estudo</string>
     <string name="add_subject_if_none">Cadastrar matéria</string>
     <string name="or">Ou</string>
@@ -36,6 +37,8 @@
     <string name="urgent_section_description">Estudos perto do prazo</string>
     <string name="overdue_section_title">Atrasados</string>
     <string name="overdue_section_description">Estudos que passaram do prazo</string>
+    <string name="studies_without_subjects_section_title">Sem matéria</string>
+    <string name="studies_without_subjects_section_description">Estudos sem matérias</string>
 
     <string name="today">Hoje</string>
     <string name="view_more">Ver mais</string>

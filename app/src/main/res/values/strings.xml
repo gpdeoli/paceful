@@ -22,6 +22,7 @@
     <string name="done_title">Done</string>
 
     <string name="no_studies_description">You don\'t have studies registered yet</string>
+    <string name="no_studies_in_section">No studies here</string>
     <string name="add_study_if_none">Register new study</string>
     <string name="add_subject_if_none">Register new subject</string>
     <string name="or">Or</string>
@@ -35,6 +36,8 @@
     <string name="urgent_section_description">Studies with near deadlines</string>
     <string name="overdue_section_title">Overdue</string>
     <string name="overdue_section_description">Studies with expired deadlines</string>
+    <string name="studies_without_subjects_section_title">No subject</string>
+    <string name="studies_without_subjects_section_description">Studies without any subject</string>
 
     <string name="today">Today</string>
     <string name="view_more">View more</string>

@@ -93,6 +93,6 @@ fun NoStudies(
 @Composable
 fun NoStudiesPreview() {
     AppTheme {
-        NoStudies(PaddingValues(0.dp), areThereSubjects = false, onEvent = {})
+        NoStudies(innerPadding = PaddingValues(0.dp), areThereSubjects = false, onEvent = {})
     }
 }

@@ -1,6 +1,6 @@
 package com.g3tech.paceful.ui.home
 
-import androidx.compose.foundation.layout.Column
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearWavyProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
@@ -21,7 +20,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.g3tech.paceful.R
+import com.g3tech.paceful.domain.model.StudiesSummary
+import com.g3tech.paceful.domain.model.StudiesSummaryNumbers
+import com.g3tech.paceful.domain.model.Study
 import com.g3tech.paceful.domain.model.StudyStatus
+import com.g3tech.paceful.domain.model.StudySummary
 import com.g3tech.paceful.ui.home.components.DashboardStats
 import com.g3tech.paceful.ui.home.components.Greeting
 import com.g3tech.paceful.ui.home.components.NoStudies
@@ -31,6 +34,7 @@ import com.g3tech.paceful.ui.shared.BottomAppBar
 import com.g3tech.paceful.ui.shared.FabItem
 import com.g3tech.paceful.ui.shared.FabMenu
 import com.g3tech.paceful.ui.theme.AppTheme
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -54,15 +58,10 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
             FabMenu(items = fabMenuItems)
         },
         topBar = {
-            Column {
-                TopAppBar(
-                    title = { Greeting() },
-                    scrollBehavior = scrollBehavior
-                )
-                if (!state.isLoading) {
-                    HorizontalDivider(thickness = 0.4.dp)
-                }
-            }
+            TopAppBar(
+                title = { Greeting() },
+                scrollBehavior = scrollBehavior
+            )
         },
         bottomBar = { BottomAppBar() }
     ) { innerPadding ->
@@ -72,9 +71,11 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
         val subjectsEmpty = summaryData.subjects.isEmpty()
 
         if (state.isLoading) {
-            LinearWavyProgressIndicator(modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxWidth())
+            LinearWavyProgressIndicator(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(innerPadding)
+            )
             return@Scaffold
         }
 
@@ -136,6 +137,19 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
                     studies = studiesWithSubjects.filter { it.subject == subject.id },
                     onViewAllClick = {})
             }
+
+            val showWithoutSubjectStudies =
+                summaryData.studiesWithSubjects.isEmpty() && !summaryData.studiesWithoutSubjects.isNullOrEmpty()
+            if (showWithoutSubjectStudies) {
+                item {
+                    StudySection(
+                        title = stringResource(R.string.studies_without_subjects_section_title),
+                        description = stringResource(R.string.studies_without_subjects_section_description),
+                        studies = summaryData.studiesWithoutSubjects,
+                        onViewAllClick = {}
+                    )
+                }
+            }
         }
     }
 }
@@ -148,10 +162,57 @@ fun HomeScreenEmptyPreview() {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(
+    showBackground = true,
+    showSystemUi = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    locale = "pt"
+)
 @Composable
-fun HomeScreenLoadingPreview() {
+fun HomeScreenWithDataPreview() {
+    val urgentStudies = List(3) {
+        StudySummary(
+            study = Study(
+                name = "Urgent Study ${it + 1}",
+                status = StudyStatus.IN_PROGRESS,
+                deadline = LocalDate.now()
+            ),
+            topics = null,
+            subject = null
+        )
+    }
+
+    val overdueStudies = List(3) {
+        StudySummary(
+            study = Study(
+                name = "Overdue Study ${it + 1}",
+                status = StudyStatus.IN_PROGRESS,
+                deadline = LocalDate.now().minusDays(1)
+            ),
+            topics = null,
+            subject = null
+        )
+    }
+
+    val summaryNumbers = listOf(
+        StudiesSummaryNumbers(value = 5, status = StudyStatus.PENDING),
+        StudiesSummaryNumbers(value = 3, status = StudyStatus.IN_PROGRESS),
+        StudiesSummaryNumbers(value = 2, status = StudyStatus.SCHEDULED),
+        StudiesSummaryNumbers(value = 10, status = StudyStatus.DONE)
+    )
+
+    val state = HomeScreenState(
+        summaryData = StudiesSummary(
+            studiesSummaryNumbers = summaryNumbers,
+            subjects = emptyList(),
+            urgentStudies = urgentStudies,
+            overdueStudies = overdueStudies,
+            studiesWithSubjects = emptyList(),
+            studiesWithoutSubjects = urgentStudies
+        )
+    )
+
     AppTheme {
-        HomeScreen(state = HomeScreenState(isLoading = true), onEvent = {})
+        HomeScreen(state = state, onEvent = {})
     }
 }

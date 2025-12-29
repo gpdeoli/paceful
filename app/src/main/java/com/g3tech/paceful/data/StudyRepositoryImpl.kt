@@ -39,12 +39,17 @@ class StudyRepositoryImpl(
             val studiesWithSubject = studyDao.getStudiesWithSubjects(subjectsIds = subjectsIds)
             val studiesSummaryNumbers = studyDao.getStudiesSummaryNumbers()
 
+            val studiesWithoutSubjects = if (studiesWithSubject.isEmpty()) {
+                studyDao.getStudiesWithoutSubjects()
+            } else null
+
             val studiesSummary = StudiesSummary(
                 subjects = summarySubjects.map { it.toModel() },
                 urgentStudies = urgentStudies.map { it.toModel() },
                 overdueStudies = overdueStudies.map { it.toModel() },
                 studiesWithSubjects = studiesWithSubject.map { it.toModel() },
-                studiesSummaryNumbers = studiesSummaryNumbers.map { it.toModel() }
+                studiesSummaryNumbers = studiesSummaryNumbers.map { it.toModel() },
+                studiesWithoutSubjects = studiesWithoutSubjects?.map { it.toModel() }
             )
             return Result.success(studiesSummary)
         } catch (err: Exception) {

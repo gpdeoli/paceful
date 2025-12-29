@@ -11,6 +11,13 @@ interface SubjectDao {
     @Insert
     suspend fun insertSubject(subject: Subject)
 
-    @Query("SELECT id, name, description FROM subject LIMIT 3")
+    @Query(
+        """
+        SELECT subject.id, subject.name, subject.description
+        FROM subject
+        INNER JOIN study ON subject.id = study.subject
+        LIMIT 3
+        """
+    )
     suspend fun getSummarySubjects(): List<SummarySubject>
 }

@@ -6,4 +6,5 @@ data class StudiesSummary(
     val urgentStudies: List<StudySummary>,
     val overdueStudies: List<StudySummary>,
     val studiesWithSubjects: List<StudySummary>,
+    val studiesWithoutSubjects: List<StudySummary>? = null
 )
