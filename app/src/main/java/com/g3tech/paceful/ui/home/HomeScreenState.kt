@@ -1,6 +1,7 @@
 package com.g3tech.paceful.ui.home
 
 import com.g3tech.paceful.domain.model.StudiesSummary
+import com.g3tech.paceful.ui.shared.createstudy.CreateStudyState
 
 data class HomeScreenState(
     val summaryData: StudiesSummary = StudiesSummary(
@@ -8,7 +9,9 @@ data class HomeScreenState(
         subjects = emptyList(),
         urgentStudies = emptyList(),
         overdueStudies = emptyList(),
-        studiesWithSubjects = emptyList()
+        studiesWithSubjects = emptyList(),
     ),
-    val isLoading: Boolean = false
+    val createStudyOpen: Boolean = false,
+    val createStudyState: CreateStudyState = CreateStudyState(),
+    val isLoading: Boolean = false,
 )

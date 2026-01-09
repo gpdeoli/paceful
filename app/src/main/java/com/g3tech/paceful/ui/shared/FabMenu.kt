@@ -33,14 +33,18 @@ fun FabMenu(items: List<FabItem>) {
         },
     ) {
         items.forEach { item ->
-            FloatingActionButtonMenuItem(onClick = item.onClick, text = {
-                Text(item.label)
-            }, icon = {
-                Icon(
-                    imageVector = ImageVector.vectorResource(item.icon),
-                    contentDescription = item.label
-                )
-            })
+            FloatingActionButtonMenuItem(
+                onClick = {
+                    item.onClick()
+                    expanded = false
+                }, text = {
+                    Text(item.label)
+                }, icon = {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(item.icon),
+                        contentDescription = item.label
+                    )
+                })
         }
     }
 }

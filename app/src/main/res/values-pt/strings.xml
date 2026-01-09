@@ -11,12 +11,14 @@
 
     <string name="studies">Estudos</string>
     <string name="subjects">Matérias</string>
+    <string name="subject">Matéria</string>
     <string name="settings">Configurações</string>
     <string name="home">Home</string>
 
     <string name="no_topics">Sem tópicos</string>
     <string name="new_subject">Nova matéria</string>
     <string name="new_study">Novo estudo</string>
+    <string name="new_topic">Novo tópico</string>
     <string name="pending_title">Pendente</string>
     <string name="in_progress_title">Em Andamento</string>
     <string name="scheduled_title">Agendado</string>
@@ -28,10 +30,22 @@
     <string name="add_subject_if_none">Cadastrar matéria</string>
     <string name="or">Ou</string>
 
+    <string name="add_topic">Adicionar tópico</string>
+
     <string name="due">Prazo</string>
     <string name="overdue">Atrasado</string>
     <string name="topics">Tópicos</string>
     <string name="and_more">e mais</string>
+
+    <string name="name">Nome</string>
+    <string name="no_subject">Nenhuma matéria</string>
+    <string name="no_subject_selected">Nenhuma matéria selecionada</string>
+    <string name="no_subjects_registered">Nenhuma matéria registrada</string>
+    <string name="select_date">Selecione uma data</string>
+    <string name="select_deadline">Selecione o prazo final do estudo</string>
+    <string name="deadline">Prazo final</string>
+    <string name="select_start_date">Selecione a data de início do estudo</string>
+    <string name="start_date">Data de início</string>
 
     <string name="urgent_section_title">Urgentes</string>
     <string name="urgent_section_description">Estudos perto do prazo</string>
@@ -40,6 +54,13 @@
     <string name="studies_without_subjects_section_title">Sem matéria</string>
     <string name="studies_without_subjects_section_description">Estudos sem matérias</string>
 
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Salvar</string>
+    <string name="optional">opcional</string>
+    <string name="study_save_failed">Um erro ocorreu ao salvar o estudo. Tente novamente depois</string>
+
     <string name="today">Hoje</string>
+    <string name="tomorrow">Tomorrow</string>
     <string name="view_more">Ver mais</string>
 </resources>

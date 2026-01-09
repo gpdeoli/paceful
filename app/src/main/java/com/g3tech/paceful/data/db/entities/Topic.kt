@@ -40,6 +40,6 @@ fun CreateTopic.toDbEntity(): Topic {
     return Topic(
         name = this.name,
         deadline = this.deadline,
-        studyId = this.studyId
+        studyId = 0
     )
 }

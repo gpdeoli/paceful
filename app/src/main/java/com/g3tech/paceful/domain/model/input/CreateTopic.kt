@@ -5,5 +5,4 @@ import java.time.LocalDate
 data class CreateTopic(
     val name: String,
     val deadline: LocalDate? = null,
-    val studyId: Long
 )

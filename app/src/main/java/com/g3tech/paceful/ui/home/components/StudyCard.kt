@@ -16,11 +16,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,9 +27,8 @@ import androidx.compose.ui.unit.dp
 import com.g3tech.paceful.R
 import com.g3tech.paceful.domain.model.Study
 import com.g3tech.paceful.domain.model.Topic
+import com.g3tech.paceful.ui.utils.getLocalizedDateFormatter
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 
 @Composable
 fun StudyCard(study: Study, topics: List<Topic>?, isCardOpen: Boolean = true) {
@@ -151,19 +148,6 @@ fun StudyCard(study: Study, topics: List<Topic>?, isCardOpen: Boolean = true) {
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun getLocalizedDateFormatter(): DateTimeFormatter {
-    val locale = LocalConfiguration.current.locales[0]
-
-    return remember(locale) {
-        if (locale.language == "pt") {
-            DateTimeFormatter.ofPattern("d MMM yyyy", locale)
-        } else {
-            DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)
         }
     }
 }
