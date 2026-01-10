@@ -18,7 +18,7 @@ import com.g3tech.paceful.data.db.entities.Topic
 )
 @TypeConverters(LocalDateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun subjectStatusDao(): SubjectDao
+    abstract fun subjectDao(): SubjectDao
     abstract fun studyDao(): StudyDao
     abstract fun studyStatusDao(): StudyStatusDao
 }

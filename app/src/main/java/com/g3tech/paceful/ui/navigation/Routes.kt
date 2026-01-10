@@ -6,4 +6,7 @@ import kotlinx.serialization.Serializable
 sealed interface Routes : NavKey {
     @Serializable
     data object HomeScreen : Routes
+
+    @Serializable
+    data object CreateSubjectScreen: Routes
 }

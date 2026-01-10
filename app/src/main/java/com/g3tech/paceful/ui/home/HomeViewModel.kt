@@ -2,11 +2,14 @@ package com.g3tech.paceful.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation3.runtime.NavKey
 import com.g3tech.paceful.domain.model.PartialSubject
 import com.g3tech.paceful.domain.model.StudyStatus
 import com.g3tech.paceful.domain.model.input.CreateStudy
 import com.g3tech.paceful.domain.model.input.CreateTopic
 import com.g3tech.paceful.domain.repositories.StudyRepository
+import com.g3tech.paceful.ui.navigation.Navigator
+import com.g3tech.paceful.ui.navigation.Routes
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
@@ -16,7 +19,8 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class HomeViewModel(
-    private val studyRepository: StudyRepository
+    private val studyRepository: StudyRepository,
+    private val navigator: Navigator<NavKey>
 ) : ViewModel() {
     private val _state = MutableStateFlow(HomeScreenState())
     val state = _state
@@ -41,6 +45,7 @@ class HomeViewModel(
     fun onEvent(event: HomeScreenEvent) {
         when (event) {
             is HomeScreenEvent.NewStudyClick -> _state.update { it.copy(createStudyOpen = true) }
+            is HomeScreenEvent.NewSubjectClick -> navigator.navigateTo(Routes.CreateSubjectScreen)
             is HomeScreenEvent.ToggleCreateStudyDialog -> _state.update { it.copy(createStudyOpen = event.isOpen) }
 
             is CreateStudyEvent.DeadlineChanged -> updateStudyDeadline(event.selectedDate)

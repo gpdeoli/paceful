@@ -38,6 +38,7 @@
     <string name="and_more">e mais</string>
 
     <string name="name">Nome</string>
+    <string name="description">Descrição</string>
     <string name="no_subject">Nenhuma matéria</string>
     <string name="no_subject_selected">Nenhuma matéria selecionada</string>
     <string name="no_subjects_registered">Nenhuma matéria registrada</string>

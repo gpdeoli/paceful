@@ -44,6 +44,7 @@
     <string name="studies_without_subjects_section_description">Studies without any subject</string>
 
     <string name="name">Name</string>
+    <string name="description">Description</string>
     <string name="no_subject">No subject</string>
     <string name="no_subject_selected">No subject selected</string>
     <string name="no_subjects_registered">No subjects registered</string>
