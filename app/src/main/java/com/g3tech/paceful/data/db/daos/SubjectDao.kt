@@ -4,7 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.g3tech.paceful.data.db.entities.Subject
-import com.g3tech.paceful.data.db.entities.SummarySubject
+import com.g3tech.paceful.domain.model.input.subject.PartialSubject
+import com.g3tech.paceful.domain.model.input.subject.SubjectToSelect
 
 @Dao
 interface SubjectDao {
@@ -19,5 +20,8 @@ interface SubjectDao {
         LIMIT 3
         """
     )
-    suspend fun getSummarySubjects(): List<SummarySubject>
+    suspend fun getSummarySubjects(): List<PartialSubject>
+
+    @Query("""SELECT id, name FROM subject WHERE deadline < DATE('NOW()')""")
+    suspend fun getSubjectsToSelect(): List<SubjectToSelect>
 }

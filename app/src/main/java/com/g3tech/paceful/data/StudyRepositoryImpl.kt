@@ -44,7 +44,7 @@ class StudyRepositoryImpl(
             } else null
 
             val studiesSummary = StudiesSummary(
-                subjects = summarySubjects.map { it.toModel() },
+                subjects = summarySubjects,
                 urgentStudies = urgentStudies.map { it.toModel() },
                 overdueStudies = overdueStudies.map { it.toModel() },
                 studiesWithSubjects = studiesWithSubject.map { it.toModel() },

@@ -1,5 +1,7 @@
 package com.g3tech.paceful.domain.model
 
+import com.g3tech.paceful.domain.model.input.subject.PartialSubject
+
 data class StudiesSummary(
     val studiesSummaryNumbers: List<StudiesSummaryNumbers>,
     val subjects: List<PartialSubject>,

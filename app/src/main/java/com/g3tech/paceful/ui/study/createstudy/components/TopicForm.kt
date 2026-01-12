@@ -1,4 +1,4 @@
-package com.g3tech.paceful.ui.shared.createstudy
+package com.g3tech.paceful.ui.study.createstudy.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,13 +19,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.g3tech.paceful.R
-import com.g3tech.paceful.ui.home.CreateStudyEvent
-import com.g3tech.paceful.ui.home.HomeScreenEvent
 import com.g3tech.paceful.ui.shared.OutlinedDatePicker
+import com.g3tech.paceful.ui.study.createstudy.CreateStudyEvent
 import java.time.LocalDate
 
 @Composable
-fun TopicForm(name: String?, deadline: LocalDate?, enabled: Boolean, onEvent: (HomeScreenEvent) -> Unit) {
+fun TopicForm(name: String?, deadline: LocalDate?, enabled: Boolean, onEvent: (CreateStudyEvent) -> Unit) {
     Card(modifier = Modifier.fillMaxWidth()) {
         Column(
             modifier = Modifier
@@ -46,11 +45,7 @@ fun TopicForm(name: String?, deadline: LocalDate?, enabled: Boolean, onEvent: (H
                 modifier = Modifier.fillMaxWidth(),
                 value = name ?: "",
                 onValueChange = { topicName ->
-                    onEvent(
-                        CreateStudyEvent.TopicNameChanged(
-                            topicName
-                        )
-                    )
+                    onEvent(CreateStudyEvent.TopicNameChanged(topicName))
                 },
                 label = { Text(stringResource(R.string.name)) }
             )

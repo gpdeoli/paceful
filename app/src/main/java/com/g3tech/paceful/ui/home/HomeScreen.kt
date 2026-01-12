@@ -31,7 +31,6 @@ import com.g3tech.paceful.ui.home.components.NoStudies
 import com.g3tech.paceful.ui.home.components.StatsValues
 import com.g3tech.paceful.ui.home.components.StudySection
 import com.g3tech.paceful.ui.shared.BottomAppBar
-import com.g3tech.paceful.ui.shared.createstudy.CreateStudyDialog
 import com.g3tech.paceful.ui.shared.FabItem
 import com.g3tech.paceful.ui.shared.FabMenu
 import com.g3tech.paceful.ui.theme.AppTheme
@@ -153,11 +152,6 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
             }
         }
     }
-    CreateStudyDialog(
-        isOpen = state.createStudyOpen,
-        state = state.createStudyState,
-        onEvent = onEvent
-    )
 }
 
 @Preview(showBackground = true, showSystemUi = true)

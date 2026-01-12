@@ -2,7 +2,8 @@ package com.g3tech.paceful.data
 
 import com.g3tech.paceful.data.db.daos.SubjectDao
 import com.g3tech.paceful.data.db.entities.toDbEntity
-import com.g3tech.paceful.domain.model.Subject
+import com.g3tech.paceful.domain.model.input.subject.Subject
+import com.g3tech.paceful.domain.model.input.subject.SubjectToSelect
 import com.g3tech.paceful.domain.repositories.SubjectRepository
 
 class SubjectRepositoryImpl(private val subjectDao: SubjectDao): SubjectRepository {
@@ -12,6 +13,15 @@ class SubjectRepositoryImpl(private val subjectDao: SubjectDao): SubjectReposito
 
         return try {
             Result.success(subjectDao.insertSubject(subjectEntity))
+        } catch (err: Exception) {
+            Result.failure(err)
+        }
+    }
+
+    override suspend fun getPartialSubjects(): Result<List<SubjectToSelect>> {
+        return try {
+            val subjects = subjectDao.getSubjectsToSelect()
+            Result.success(subjects)
         } catch (err: Exception) {
             Result.failure(err)
         }

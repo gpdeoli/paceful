@@ -1,4 +1,4 @@
-package com.g3tech.paceful.domain.model
+package com.g3tech.paceful.domain.model.input.subject
 
 import java.time.LocalDate
 

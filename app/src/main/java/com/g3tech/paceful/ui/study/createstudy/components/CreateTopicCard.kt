@@ -1,4 +1,4 @@
-package com.g3tech.paceful.ui.shared.createstudy
+package com.g3tech.paceful.ui.study.createstudy.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

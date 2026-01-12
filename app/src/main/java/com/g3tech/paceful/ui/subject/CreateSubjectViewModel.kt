@@ -3,7 +3,7 @@ package com.g3tech.paceful.ui.subject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation3.runtime.NavKey
-import com.g3tech.paceful.domain.model.Subject
+import com.g3tech.paceful.domain.model.input.subject.Subject
 import com.g3tech.paceful.domain.repositories.SubjectRepository
 import com.g3tech.paceful.ui.navigation.Navigator
 import kotlinx.coroutines.flow.MutableStateFlow

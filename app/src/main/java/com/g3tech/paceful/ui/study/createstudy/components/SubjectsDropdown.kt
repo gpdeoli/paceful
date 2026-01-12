@@ -1,4 +1,4 @@
-package com.g3tech.paceful.ui.shared.createstudy
+package com.g3tech.paceful.ui.study.createstudy.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.DropdownMenuItem
@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.g3tech.paceful.R
-import com.g3tech.paceful.domain.model.PartialSubject
-import com.g3tech.paceful.ui.home.CreateStudyEvent
+import com.g3tech.paceful.domain.model.input.subject.SubjectToSelect
+import com.g3tech.paceful.ui.study.createstudy.CreateStudyEvent
 import kotlin.collections.forEach
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -21,8 +21,9 @@ import kotlin.collections.forEach
 fun SubjectsDropdown(
     isExpanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
-    selectedSubject: PartialSubject?,
-    subjects: List<PartialSubject>
+    selectedSubject: SubjectToSelect?,
+    subjects: List<SubjectToSelect>,
+    onEvent: (CreateStudyEvent) -> Unit
 ) {
     ExposedDropdownMenuBox(
         expanded = isExpanded,
@@ -49,14 +50,13 @@ fun SubjectsDropdown(
             expanded = isExpanded,
             onDismissRequest = { onExpandedChange(false) }
         ) {
-            val nullOptionText = selectedSubject?.name
-                ?: if (subjects.isEmpty()) stringResource(R.string.no_subjects_registered) else stringResource(
-                    R.string.no_subject
-                )
+            val nullOptionText =
+                if (subjects.isEmpty()) stringResource(R.string.no_subjects_registered)
+                else stringResource(R.string.no_subject)
             DropdownMenuItem(
                 text = { Text(nullOptionText) },
                 onClick = {
-                    CreateStudyEvent.SubjectChanged(null)
+                    onEvent(CreateStudyEvent.SubjectChanged(null))
                     onExpandedChange(false)
                 }
             )
@@ -65,7 +65,7 @@ fun SubjectsDropdown(
                 DropdownMenuItem(
                     text = { Text(text = subject.name) },
                     onClick = {
-                        CreateStudyEvent.SubjectChanged(subject)
+                        onEvent(CreateStudyEvent.SubjectChanged(subject))
                         onExpandedChange(false)
                     }
                 )

@@ -39,9 +39,9 @@
 
     <string name="name">Nome</string>
     <string name="description">Descrição</string>
-    <string name="no_subject">Nenhuma matéria</string>
+    <string name="no_subject">Sem matéria</string>
     <string name="no_subject_selected">Nenhuma matéria selecionada</string>
-    <string name="no_subjects_registered">Nenhuma matéria registrada</string>
+    <string name="no_subjects_registered">Sem matérias registradas</string>
     <string name="select_date">Selecione uma data</string>
     <string name="select_deadline">Selecione o prazo final do estudo</string>
     <string name="deadline">Prazo final</string>

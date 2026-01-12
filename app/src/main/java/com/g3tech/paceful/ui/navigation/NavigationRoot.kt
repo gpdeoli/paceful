@@ -15,6 +15,8 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.g3tech.paceful.ui.home.HomeScreen
 import com.g3tech.paceful.ui.home.HomeViewModel
+import com.g3tech.paceful.ui.study.createstudy.CreateStudyScreen
+import com.g3tech.paceful.ui.study.createstudy.CreateStudyViewModel
 import com.g3tech.paceful.ui.subject.CreateSubjectScreen
 import com.g3tech.paceful.ui.subject.CreateSubjectViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -42,6 +44,12 @@ fun NavigationRoot() {
                     val viewModel: CreateSubjectViewModel = koinViewModel()
                     val state by viewModel.state.collectAsStateWithLifecycle()
                     CreateSubjectScreen(state = state, onEvent = viewModel::onEvent)
+                }
+
+                is Routes.CreateStudyScreen -> NavEntry(key) {
+                    val viewModel: CreateStudyViewModel = koinViewModel()
+                    val state by viewModel.state.collectAsStateWithLifecycle()
+                    CreateStudyScreen(state, viewModel::onEvent)
                 }
 
                 else -> NavEntry(key) {
