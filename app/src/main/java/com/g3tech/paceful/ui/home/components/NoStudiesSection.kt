@@ -12,8 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.g3tech.paceful.R
+import com.g3tech.paceful.ui.theme.AppTheme
 
 @Composable
 fun NoStudiesSection() {
@@ -33,5 +35,13 @@ fun NoStudiesSection() {
             color = onPrimaryHalfOpacity,
             style = MaterialTheme.typography.bodySmall
         )
+    }
+}
+
+@Composable
+@Preview
+fun NoStudiesSectionPreview() {
+    AppTheme {
+        NoStudiesSection()
     }
 }

@@ -15,9 +15,11 @@
       </SelectionState>
       <SelectionState runConfigName="HomeScreenWithDataPreview">
         <option name="selectionMode" value="DROPDOWN" />
+        <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="CreateStudyDialogPreview">
+      <SelectionState runConfigName="HomeScreenEmptyPreview">
         <option name="selectionMode" value="DROPDOWN" />
+        <DialogSelection />
       </SelectionState>
     </selectionStates>
   </component>

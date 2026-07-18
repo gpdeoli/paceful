@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LinearWavyProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -25,6 +26,7 @@ import com.g3tech.paceful.domain.model.StudiesSummaryNumbers
 import com.g3tech.paceful.domain.model.Study
 import com.g3tech.paceful.domain.model.StudyStatus
 import com.g3tech.paceful.domain.model.StudySummary
+import com.g3tech.paceful.domain.model.input.subject.PartialSubject
 import com.g3tech.paceful.ui.home.components.DashboardStats
 import com.g3tech.paceful.ui.home.components.Greeting
 import com.g3tech.paceful.ui.home.components.NoStudies
@@ -60,7 +62,11 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
         topBar = {
             TopAppBar(
                 title = { Greeting() },
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    scrolledContainerColor = MaterialTheme.colorScheme.background,
+                ),
             )
         },
         bottomBar = { BottomAppBar() }
@@ -115,7 +121,6 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
             item {
                 StudySection(
                     title = stringResource(R.string.urgent_section_title),
-                    description = stringResource(R.string.urgent_section_description),
                     studies = state.summaryData.urgentStudies,
                     onViewAllClick = { onEvent(HomeScreenEvent.ViewAllClick(null)) }
                 )
@@ -123,7 +128,6 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
             item {
                 StudySection(
                     title = stringResource(R.string.overdue_section_title),
-                    description = stringResource(R.string.overdue_section_description),
                     studies = state.summaryData.overdueStudies,
                     onViewAllClick = { onEvent(HomeScreenEvent.ViewAllClick(null)) }
                 )
@@ -133,8 +137,7 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
             items(state.summaryData.subjects) { subject ->
                 StudySection(
                     title = subject.name,
-                    description = subject.description ?: "",
-                    studies = studiesWithSubjects.filter { it.subject == subject.id },
+                    studies = studiesWithSubjects.filter { it.subject?.id == subject.id },
                     onViewAllClick = {})
             }
 
@@ -144,7 +147,6 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
                 item {
                     StudySection(
                         title = stringResource(R.string.studies_without_subjects_section_title),
-                        description = stringResource(R.string.studies_without_subjects_section_description),
                         studies = summaryData.studiesWithoutSubjects,
                         onViewAllClick = {}
                     )
@@ -178,7 +180,7 @@ fun HomeScreenWithDataPreview() {
                 deadline = LocalDate.now()
             ),
             topics = null,
-            subject = null
+            subject = PartialSubject(id = 1, name = "Fisica", description = "Oi")
         )
     }
 
@@ -189,8 +191,6 @@ fun HomeScreenWithDataPreview() {
                 status = StudyStatus.IN_PROGRESS,
                 deadline = LocalDate.now().minusDays(1)
             ),
-            topics = null,
-            subject = null
         )
     }
 

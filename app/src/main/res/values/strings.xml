@@ -32,12 +32,12 @@
     <string name="add_topic">Add topic</string>
 
     <string name="due">Due</string>
+    <string name="due_date">Due date</string>
     <string name="overdue">Overdue</string>
     <string name="topics">Topics</string>
     <string name="and_more">and more</string>
 
-    <string name="urgent_section_title">Urgent</string>
-    <string name="urgent_section_description">Studies with near deadlines</string>
+    <string name="urgent_section_title">Needs attention</string>
     <string name="overdue_section_title">Overdue</string>
     <string name="overdue_section_description">Studies with expired deadlines</string>
     <string name="studies_without_subjects_section_title">No subject</string>
@@ -58,7 +58,7 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="optional">optional</string>
-    <string name="study_save_failed">An error ocurred saving the study. Try again later</string>
+    <string name="study_save_failed">An error occurred saving the study. Try again later</string>
 
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>

@@ -4,6 +4,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButtonMenu
 import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleFloatingActionButton
 import androidx.compose.runtime.Composable
@@ -19,15 +20,25 @@ import com.g3tech.paceful.R
 @Composable
 fun FabMenu(items: List<FabItem>) {
     var expanded by remember { mutableStateOf(false) }
+    val primaryColor = MaterialTheme.colorScheme.primary
+    val onPrimaryColor = MaterialTheme.colorScheme.onPrimary
+    val surfaceVariantColor = MaterialTheme.colorScheme.surfaceVariant
+    val onSurfaceVariantColor = MaterialTheme.colorScheme.onSurfaceVariant
 
     FloatingActionButtonMenu(
         expanded = expanded,
         button = {
-            ToggleFloatingActionButton(checked = expanded, onCheckedChange = { expanded = it }) {
+            ToggleFloatingActionButton(
+                checked = expanded,
+                onCheckedChange = { expanded = it },
+                containerColor = { primaryColor },
+            ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(
                         if (expanded) R.drawable.close_24 else R.drawable.add_24
-                    ), contentDescription = if (expanded) "Close" else "Add"
+                    ),
+                    contentDescription = if (expanded) "Close" else "Add",
+                    tint = onPrimaryColor,
                 )
             }
         },
@@ -37,14 +48,17 @@ fun FabMenu(items: List<FabItem>) {
                 onClick = {
                     item.onClick()
                     expanded = false
-                }, text = {
-                    Text(item.label)
-                }, icon = {
+                },
+                containerColor = surfaceVariantColor,
+                contentColor = onSurfaceVariantColor,
+                text = { Text(item.label) },
+                icon = {
                     Icon(
                         imageVector = ImageVector.vectorResource(item.icon),
                         contentDescription = item.label
                     )
-                })
+                },
+            )
         }
     }
 }

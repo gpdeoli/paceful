@@ -33,6 +33,7 @@
     <string name="add_topic">Adicionar tópico</string>
 
     <string name="due">Prazo</string>
+    <string name="due_date">Prazo final</string>
     <string name="overdue">Atrasado</string>
     <string name="topics">Tópicos</string>
     <string name="and_more">e mais</string>
@@ -48,8 +49,7 @@
     <string name="select_start_date">Selecione a data de início do estudo</string>
     <string name="start_date">Data de início</string>
 
-    <string name="urgent_section_title">Urgentes</string>
-    <string name="urgent_section_description">Estudos perto do prazo</string>
+    <string name="urgent_section_title">Precisam de atenção</string>
     <string name="overdue_section_title">Atrasados</string>
     <string name="overdue_section_description">Estudos que passaram do prazo</string>
     <string name="studies_without_subjects_section_title">Sem matéria</string>

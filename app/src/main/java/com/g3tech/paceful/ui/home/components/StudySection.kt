@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.g3tech.paceful.R
@@ -29,7 +28,6 @@ import com.g3tech.paceful.ui.theme.AppTheme
 @Composable
 fun StudySection(
     title: String,
-    description: String,
     studies: List<StudySummary>,
     onViewAllClick: () -> Unit
 ) {
@@ -51,12 +49,6 @@ fun StudySection(
                     style = MaterialTheme.typography.titleLarge
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = description,
-                    style = MaterialTheme.typography.bodySmall,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
             }
 
             if (!studies.isEmpty()) {
@@ -65,7 +57,6 @@ fun StudySection(
                 }
             }
         }
-
 
         if (studies.isEmpty()) {
             Spacer(Modifier.height(16.dp))
@@ -79,14 +70,12 @@ fun StudySection(
             return@Column
         }
 
-
         LazyRow(
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-
             items(studies) { studySummary ->
-                StudyCard(study = studySummary.study, studySummary.topics)
+                StudyCard(study = studySummary.study, studySummary.topics, subjectName = studySummary.subject?.name)
             }
         }
     }
@@ -96,6 +85,10 @@ fun StudySection(
 @Composable
 fun StudySectionPreview(){
     AppTheme {
-        StudySection(title = "Urgent", description = "Description", studies = emptyList(), onViewAllClick = {})
+        StudySection(
+            title = "Urgent",
+            studies = emptyList(),
+            onViewAllClick = {}
+        )
     }
 }

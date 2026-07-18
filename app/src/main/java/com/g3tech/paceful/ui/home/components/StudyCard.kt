@@ -1,6 +1,9 @@
 package com.g3tech.paceful.ui.home.components
 
+import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,145 +12,258 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Card
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.g3tech.paceful.R
 import com.g3tech.paceful.domain.model.Study
+import com.g3tech.paceful.domain.model.StudyStatus
 import com.g3tech.paceful.domain.model.Topic
+import com.g3tech.paceful.ui.theme.AppTheme
 import com.g3tech.paceful.ui.utils.getLocalizedDateFormatter
 import java.time.LocalDate
 
 @Composable
-fun StudyCard(study: Study, topics: List<Topic>?, isCardOpen: Boolean = true) {
+fun StudyCard(
+    study: Study,
+    topics: List<Topic>?,
+    subjectName: String? = null,
+) {
+    var isCardOpen by remember { mutableStateOf(false) }
     val dateFormatter = getLocalizedDateFormatter()
+    val isDone = study.status == StudyStatus.DONE
+    val isOverdue = !isDone && study.deadline.isBefore(LocalDate.now())
 
-    val today = LocalDate.now()
-    val isOverdue = study.deadline.isBefore(today)
-    val isDeadlineToday = study.deadline.isEqual(today)
-    val dueText = "${stringResource(R.string.due)}:"
-    val overdueText = "(${stringResource(R.string.overdue)})"
-    val todayText = stringResource(R.string.today)
-
-    Card(
+    Surface(
         modifier = Modifier
-            .width(350.dp)
-            .padding(vertical = 4.dp)
+            .width(300.dp)
+            .padding(vertical = 8.dp),
+        shape = RoundedCornerShape(48.dp),
+        color = if (isDone) MaterialTheme.colorScheme.surfaceVariant
+        else MaterialTheme.colorScheme.surface,
+        shadowElevation = if (isDone) 0.dp else 4.dp,
     ) {
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+        Box(Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp),
             ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    if (subjectName != null) {
+                        SubjectPill(subjectName)
+                    } else {
+                        Spacer(Modifier.weight(1f))
+                    }
+                    StudyStatusIndicator(study.status)
+                }
+
+                Spacer(Modifier.height(16.dp))
+
                 Text(
-                    modifier = Modifier
-                        .fillMaxWidth(0.65f)
-                        .padding(start = 2.dp),
+                    text = study.name,
+                    style = MaterialTheme.typography.headlineSmall.copy(
+                        textDecoration = if (isDone) TextDecoration.LineThrough else TextDecoration.None,
+                    ),
+                    color = if (isDone) MaterialTheme.colorScheme.onSurfaceVariant
+                    else MaterialTheme.colorScheme.onBackground,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    text = study.name,
-                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
                 )
-                StudyStatusBadge(status = study.status)
-            }
-            Spacer(modifier = Modifier.padding(12.dp))
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    painter = painterResource(R.drawable.calendar_today_24),
-                    contentDescription = "calendar icon",
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    study.startDate.format(dateFormatter),
-                    style = MaterialTheme.typography.titleSmall
-                )
-            }
+                Spacer(Modifier.height(24.dp))
 
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    painter = painterResource(R.drawable.schedule_24),
-                    contentDescription = "clock icon",
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-
-                val baseDueTitle = "$dueText ${study.deadline.format(dateFormatter)}"
-                val dueTitle: String = if (isOverdue) {
-                    "$baseDueTitle $overdueText"
-                } else if (isDeadlineToday) {
-                    "$baseDueTitle ($todayText)"
-                } else {
-                    baseDueTitle
-                }
-                Text(
-                    dueTitle,
-                    color = if (isOverdue) MaterialTheme.colorScheme.error else Color.Unspecified,
-                    style = MaterialTheme.typography.titleSmall
-                )
-            }
-
-            HorizontalDivider(Modifier.padding(vertical = 12.dp))
-
-            val isTopicsEmpty = topics.isNullOrEmpty()
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.Top
-            ) {
-                val topicsLabel =
-                    if (isTopicsEmpty) stringResource(R.string.no_topics) else "${topics.size} ${
-                        stringResource(R.string.topics).lowercase()
-                    }"
-                Text(
-                    topicsLabel, style = MaterialTheme.typography.bodyMedium
-                )
-                Spacer(Modifier.height(4.dp))
-
-                if (!isTopicsEmpty) {
-                    val iconToShow =
-                        if (isCardOpen) painterResource(R.drawable.arrow_up_24) else painterResource(
-                            R.drawable.arrow_down_24
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.Bottom,
+                ) {
+                    Column {
+                        Text(
+                            text = stringResource(R.string.due_date).uppercase(),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
-                    IconButton(onClick = {}, Modifier.size(24.dp)) {
-                        Icon(painter = iconToShow, contentDescription = "arrow icon")
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            text = study.deadline.format(dateFormatter),
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontWeight = FontWeight.Medium,
+                            ),
+                            color = when {
+                                isOverdue -> MaterialTheme.colorScheme.error
+                                isDone -> MaterialTheme.colorScheme.onSurfaceVariant
+                                else -> MaterialTheme.colorScheme.onBackground
+                            },
+                        )
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .size(36.dp)
+                            .background(
+                                color = if (isDone) Color.Transparent
+                                else MaterialTheme.colorScheme.surfaceVariant,
+                                shape = CircleShape,
+                            ),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.arrow_down_24),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier
+                                .size(16.dp)
+                                .rotate(270f),
+                        )
                     }
                 }
-            }
 
-            if (isCardOpen && !isTopicsEmpty) {
-                val itemsCount = if (topics.size > 3) 3 else topics.size
-                Column {
-                    for (i in 0 until itemsCount) {
-                        val isThereMoreTopics = topics.size > 3 && i == 2
-                        val textContent =
-                            if (isThereMoreTopics) "+${topics.size -2}" else "• ${topics[i].name}"
+                val isTopicsEmpty = topics.isNullOrEmpty()
+                if (!isTopicsEmpty) {
+                    HorizontalDivider(Modifier.padding(top = 16.dp))
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 12.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.Top,
+                    ) {
                         Text(
-                            modifier = Modifier.padding(vertical = 2.dp),
-                            text = textContent,
-                            style = MaterialTheme.typography.bodyMedium
+                            text = "${topics.size} ${stringResource(R.string.topics).lowercase()}",
+                            style = MaterialTheme.typography.bodyMedium,
                         )
+                        IconButton(
+                            onClick = { isCardOpen = false },
+                            Modifier.size(24.dp))
+                        {
+                            Icon(
+                                painter = painterResource(
+                                    if (isCardOpen) R.drawable.arrow_up_24 else R.drawable.arrow_down_24
+                                ),
+                                contentDescription = null,
+                            )
+                        }
+                    }
+
+                    if (isCardOpen) {
+                        val itemsCount = minOf(topics.size, 3)
+                        Column {
+                            for (i in 0 until itemsCount) {
+                                val isThereMoreTopics = topics.size > 3 && i == 2
+                                val textContent =
+                                    if (isThereMoreTopics) "+${topics.size - 2}" else "• ${topics[i].name}"
+                                Text(
+                                    modifier = Modifier.padding(vertical = 2.dp),
+                                    text = textContent,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                )
+                            }
+                        }
                     }
                 }
             }
         }
     }
 }
+
+// ---------- Previews ----------
+@Preview(name = "StudyCard — Light", showBackground = true)
+@Composable
+private fun StudyCardLightPreview() {
+    AppTheme(darkTheme = false) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            StudyCard(
+                study = previewStudy(StudyStatus.DONE),
+                topics = previewTopics(),
+                subjectName = "Organic Chemistry"
+            )
+            StudyCard(
+                study = previewStudy(StudyStatus.PENDING),
+                topics = previewTopics(),
+                subjectName = "Calculus III"
+            )
+            StudyCard(
+                study = previewStudy(StudyStatus.DONE),
+                topics = null,
+                subjectName = "World History"
+            )
+            StudyCard(
+                study = previewStudy(StudyStatus.DONE),
+                topics = previewTopics(),
+                subjectName = "Literature"
+            )
+        }
+    }
+}
+
+@Preview(name = "StudyCard — Dark", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun StudyCardDarkPreview() {
+    AppTheme(darkTheme = true) {
+        Column(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.background)
+                .padding(16.dp),
+        ) {
+            StudyCard(
+                study = previewStudy(StudyStatus.IN_PROGRESS),
+                topics = previewTopics(),
+                subjectName = "Organic Chemistry"
+            )
+            StudyCard(
+                study = previewStudy(StudyStatus.PENDING),
+                topics = previewTopics(),
+                subjectName = "Calculus III"
+            )
+            StudyCard(
+                study = previewStudy(StudyStatus.SCHEDULED),
+                topics = null,
+                subjectName = "World History"
+            )
+            StudyCard(
+                study = previewStudy(StudyStatus.DONE),
+                topics = previewTopics(),
+                subjectName = "Literature"
+            )
+        }
+    }
+}
+
+private fun previewStudy(status: StudyStatus) = Study(
+    name = "Advanced Cognitive Psychology: Neural Pathways",
+    status = status,
+    deadline = LocalDate.of(2023, 10, 12),
+)
+
+private fun previewTopics() = listOf(
+    Topic("Introduction"),
+    Topic("Core Concepts"),
+    Topic("Advanced Topics"),
+    Topic("Review"),
+)

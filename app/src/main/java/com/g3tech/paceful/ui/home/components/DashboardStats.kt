@@ -12,37 +12,43 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.g3tech.paceful.R
 import com.g3tech.paceful.ui.theme.AppTheme
+import com.g3tech.paceful.ui.theme.AppThemeExtension
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun DashboardStats(modifier: Modifier = Modifier, values: StatsValues) {
-    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+    val statusColors = AppThemeExtension.colors
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             CardStats(
                 modifier = Modifier.weight(1f),
                 title = stringResource(R.string.in_progress_title),
                 value = values.inProgressValue,
-                icon = R.drawable.play_24
+                icon = R.drawable.play_24,
+                statusColor = statusColors.inProgress,
             )
             CardStats(
                 modifier = Modifier.weight(1f),
                 title = stringResource(R.string.scheduled_title),
                 value = values.scheduledValue,
-                icon = R.drawable.calendar_today_24
+                icon = R.drawable.calendar_today_24,
+                statusColor = statusColors.scheduled,
             )
         }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             CardStats(
                 modifier = Modifier.weight(1f),
                 title = stringResource(R.string.pending_title),
                 value = values.pendingValue,
-                icon = R.drawable.schedule_24
+                icon = R.drawable.schedule_24,
+                statusColor = statusColors.pending,
             )
             CardStats(
                 modifier = Modifier.weight(1f),
                 title = stringResource(R.string.done_title),
                 value = values.doneValue,
-                icon = R.drawable.check_24
+                icon = R.drawable.check_24,
+                statusColor = statusColors.done,
             )
         }
     }
