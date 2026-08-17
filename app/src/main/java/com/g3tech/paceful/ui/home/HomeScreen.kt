@@ -118,19 +118,24 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
                 )
             }
 
-            item {
-                StudySection(
-                    title = stringResource(R.string.urgent_section_title),
-                    studies = state.summaryData.urgentStudies,
-                    onViewAllClick = { onEvent(HomeScreenEvent.ViewAllClick(null)) }
-                )
+            if (state.summaryData.urgentStudies.isNotEmpty()) {
+                item {
+                    StudySection(
+                        title = stringResource(R.string.urgent_section_title),
+                        studies = state.summaryData.urgentStudies,
+                        onViewAllClick = { onEvent(HomeScreenEvent.ViewAllClick(null)) }
+                    )
+                }
             }
-            item {
-                StudySection(
-                    title = stringResource(R.string.overdue_section_title),
-                    studies = state.summaryData.overdueStudies,
-                    onViewAllClick = { onEvent(HomeScreenEvent.ViewAllClick(null)) }
-                )
+
+            if (state.summaryData.overdueStudies.isNotEmpty()) {
+                item {
+                    StudySection(
+                        title = stringResource(R.string.overdue_section_title),
+                        studies = state.summaryData.overdueStudies,
+                        onViewAllClick = { onEvent(HomeScreenEvent.ViewAllClick(null)) }
+                    )
+                }
             }
 
             val studiesWithSubjects = state.summaryData.studiesWithSubjects
@@ -138,17 +143,18 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
                 StudySection(
                     title = subject.name,
                     studies = studiesWithSubjects.filter { it.subject?.id == subject.id },
-                    onViewAllClick = {})
+                    onViewAllClick = {},
+                )
             }
 
             val showWithoutSubjectStudies =
-                summaryData.studiesWithSubjects.isEmpty() && !summaryData.studiesWithoutSubjects.isNullOrEmpty()
+                summaryData.studiesWithSubjects.isNotEmpty() && !summaryData.studiesWithoutSubjects.isNullOrEmpty()
             if (showWithoutSubjectStudies) {
                 item {
                     StudySection(
                         title = stringResource(R.string.studies_without_subjects_section_title),
                         studies = summaryData.studiesWithoutSubjects,
-                        onViewAllClick = {}
+                        onViewAllClick = {},
                     )
                 }
             }

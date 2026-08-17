@@ -60,7 +60,6 @@ fun CreateStudyScreen(
     onEvent: (CreateStudyEvent) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
-
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 

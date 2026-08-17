@@ -1,11 +1,13 @@
 package com.g3tech.paceful.ui.study.createstudy.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -62,8 +64,25 @@ fun SubjectsDropdown(
             )
 
             subjects.forEach { subject ->
+                val contentColor = if (subject.isDueDateNear) MaterialTheme.colorScheme.error
+                                   else MaterialTheme.colorScheme.onSurface
                 DropdownMenuItem(
-                    text = { Text(text = subject.name) },
+                    text = {
+                        Column {
+                            Text(
+                                text = subject.name,
+                                color = contentColor,
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                            if (subject.deadline != null) {
+                                Text(
+                                    text = subject.deadline,
+                                    color = contentColor,
+                                    style = MaterialTheme.typography.bodySmall
+                                )
+                            }
+                        }
+                    },
                     onClick = {
                         onEvent(CreateStudyEvent.SubjectChanged(subject))
                         onExpandedChange(false)

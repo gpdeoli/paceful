@@ -22,6 +22,11 @@ interface SubjectDao {
     )
     suspend fun getSummarySubjects(): List<PartialSubject>
 
-    @Query("""SELECT id, name FROM subject WHERE deadline < DATE('NOW()')""")
+    @Query("""
+        SELECT id, name, deadline,
+            CASE WHEN DATE(deadline) = DATE('now', '+1 day') THEN 1 ELSE 0 END AS isDueDateNear
+        FROM subject
+        WHERE deadline > DATE('now')
+    """)
     suspend fun getSubjectsToSelect(): List<SubjectToSelect>
 }

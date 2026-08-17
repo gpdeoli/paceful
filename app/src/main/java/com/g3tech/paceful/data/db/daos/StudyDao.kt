@@ -31,14 +31,14 @@ interface StudyDao {
     @Query(
         """
         SELECT * FROM study
-        WHERE deadline BETWEEN DATE('now') AND DATE('now', '+5 days') 
+        WHERE deadline BETWEEN DATE('now') AND DATE('now', '+7 days') 
         AND status IN (SELECT id FROM study_status WHERE name != 'DONE')
         """
     )
     suspend fun getUrgentStudies(): List<SummaryStudy>
 
     @Transaction
-    @Query("SELECT * FROM study WHERE deadline > DATE('now') AND status IN (SELECT id FROM study_status WHERE name != 'DONE')")
+    @Query("SELECT * FROM study WHERE deadline < DATE('now') AND status IN (SELECT id FROM study_status WHERE name != 'DONE')")
     suspend fun getOverdueStudies(): List<SummaryStudy>
 
     @Transaction

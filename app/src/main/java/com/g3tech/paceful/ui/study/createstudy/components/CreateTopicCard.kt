@@ -26,7 +26,7 @@ fun CreateTopicCard(topic: CreateTopic, onRemove: (CreateTopic) -> Unit) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp)
+                .padding(18.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
