@@ -12,4 +12,13 @@ sealed interface Routes : NavKey {
 
     @Serializable
     data object CreateStudyScreen: Routes
+
+    @Serializable
+    data object StudyScreen: Routes
+
+    @Serializable
+    data object SubjectScreen: Routes
+
+    @Serializable
+    data object SettingsScreen: Routes
 }

@@ -2,13 +2,16 @@ package com.g3tech.paceful.ui.home
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.LinearWavyProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -32,7 +35,7 @@ import com.g3tech.paceful.ui.home.components.Greeting
 import com.g3tech.paceful.ui.home.components.NoStudies
 import com.g3tech.paceful.ui.home.components.StatsValues
 import com.g3tech.paceful.ui.home.components.StudySection
-import com.g3tech.paceful.ui.shared.BottomAppBar
+import com.g3tech.paceful.ui.shared.bottomappbar.BottomAppBar
 import com.g3tech.paceful.ui.shared.FabItem
 import com.g3tech.paceful.ui.shared.FabMenu
 import com.g3tech.paceful.ui.theme.AppTheme
@@ -43,6 +46,7 @@ import java.time.LocalDate
 fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
+        contentWindowInsets = WindowInsets(left = 0, right = 0, top = 0, bottom = 0),
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         floatingActionButton = {
             val fabMenuItems = listOf(
@@ -69,7 +73,6 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
                 ),
             )
         },
-        bottomBar = { BottomAppBar() }
     ) { innerPadding ->
         val summaryData = state.summaryData
         val studiesEmpty =

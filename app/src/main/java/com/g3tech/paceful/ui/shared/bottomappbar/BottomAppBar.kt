@@ -1,4 +1,4 @@
-package com.g3tech.paceful.ui.shared
+package com.g3tech.paceful.ui.shared.bottomappbar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,22 +23,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.g3tech.paceful.R
-import com.g3tech.paceful.ui.theme.AppTheme
+import androidx.navigation3.runtime.NavKey
 
 @Composable
 fun BottomAppBar(
-    selectedIndex: Int = 0,
-    onItemSelected: (Int) -> Unit = {},
+    selectedKey: NavKey,
+    onKeySelected: (NavKey) -> Unit,
 ) {
-    val items = listOf(
-        Pair(R.drawable.home_24, R.string.home),
-        Pair(R.drawable.study_24, R.string.studies),
-        Pair(R.drawable.subject_24, R.string.subjects),
-        Pair(R.drawable.settings_24, R.string.settings),
-    )
 
     val isDark = isSystemInDarkTheme()
     val activePillColor = if (isDark)
@@ -68,15 +60,15 @@ fun BottomAppBar(
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            items.forEachIndexed { index, (iconRes, labelRes) ->
+            TOP_LEVEL_DESTINATIONS.forEach { (route, item) ->
                 NavItem(
-                    iconRes = iconRes,
-                    labelRes = labelRes,
-                    isSelected = index == selectedIndex,
+                    iconRes = item.iconResource,
+                    labelRes = item.labelResource,
+                    isSelected = route == selectedKey,
                     activePillColor = activePillColor,
                     activeContent = activeContent,
                     inactiveContent = inactiveContent,
-                    onClick = { onItemSelected(index) },
+                    onClick = { onKeySelected(route) },
                 )
             }
         }
@@ -121,13 +113,5 @@ private fun NavItem(
                 color = contentColor,
             )
         }
-    }
-}
-
-@Preview
-@Composable
-fun BottomAppBarPreview() {
-    AppTheme {
-        BottomAppBar()
     }
 }

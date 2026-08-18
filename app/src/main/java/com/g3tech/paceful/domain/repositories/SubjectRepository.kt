@@ -5,5 +5,5 @@ import com.g3tech.paceful.domain.model.input.subject.SubjectToSelect
 
 interface SubjectRepository {
     suspend fun registerSubject(subject: Subject): Result<Unit>
-    suspend fun getPartialSubjects(): Result<List<SubjectToSelect>>
+    suspend fun getSubjectsToSelect(): Result<List<SubjectToSelect>>
 }

@@ -18,7 +18,7 @@ class SubjectRepositoryImpl(private val subjectDao: SubjectDao): SubjectReposito
         }
     }
 
-    override suspend fun getPartialSubjects(): Result<List<SubjectToSelect>> {
+    override suspend fun getSubjectsToSelect(): Result<List<SubjectToSelect>> {
         return try {
             val subjects = subjectDao.getSubjectsToSelect()
             Result.success(subjects)

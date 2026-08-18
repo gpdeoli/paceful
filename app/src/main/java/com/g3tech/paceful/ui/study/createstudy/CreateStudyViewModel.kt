@@ -33,7 +33,7 @@ class CreateStudyViewModel(
 
     private fun loadData() {
         viewModelScope.launch {
-            val result = subjectRepository.getPartialSubjects()
+            val result = subjectRepository.getSubjectsToSelect()
             result.onSuccess { subjects ->
                 _state.update { state -> state.copy(subjectOptions = subjects) }
             }
