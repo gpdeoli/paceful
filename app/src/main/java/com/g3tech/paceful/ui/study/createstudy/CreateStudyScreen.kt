@@ -1,7 +1,6 @@
 package com.g3tech.paceful.ui.study.createstudy
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -104,12 +103,13 @@ fun CreateStudyScreen(
             )
         }
 
-        Box(
+        LazyColumn(
             modifier = Modifier
                 .padding(innerPadding)
-                .fillMaxSize()
+                .fillMaxSize(),
+            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
         ) {
-            Column(modifier = Modifier.padding(horizontal = 24.dp, vertical = 12.dp)) {
+            item {
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = state.name,
@@ -136,9 +136,7 @@ fun CreateStudyScreen(
                         label = stringResource(R.string.deadline),
                         pickerTitle = stringResource(R.string.select_deadline),
                         onSelectedDate = { date ->
-                            onEvent(
-                                CreateStudyEvent.DeadlineChanged(selectedDate = date)
-                            )
+                            onEvent(CreateStudyEvent.DeadlineChanged(selectedDate = date))
                         }
                     )
                 }
@@ -164,51 +162,48 @@ fun CreateStudyScreen(
                     enabled = state.canAddTopic
                 )
 
-                Spacer(modifier = Modifier.height(6.dp))
-                LazyColumn(contentPadding = PaddingValues(vertical = 12.dp)) {
+                Spacer(modifier = Modifier.height(12.dp))
 
-                    item {
-                        Text(
-                            stringResource(R.string.topics),
-                            style = MaterialTheme.typography.titleLarge
+                Text(
+                    stringResource(R.string.topics),
+                    style = MaterialTheme.typography.titleLarge
+                )
+
+                if (state.topics.isNullOrEmpty()) {
+                    Spacer(modifier = Modifier.height(24.dp))
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Icon(
+                            modifier = Modifier.size(32.dp),
+                            imageVector = ImageVector.vectorResource(R.drawable.chat_bubble_off_24),
+                            contentDescription = stringResource(R.string.no_topics),
+                            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
                         )
-
-                        Spacer(modifier = Modifier.height(12.dp))
-                        if (state.topics.isNullOrEmpty()) {
-                            Spacer(modifier = Modifier.height(24.dp))
-                            Column(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Icon(
-                                    modifier = Modifier.size(32.dp),
-                                    imageVector = ImageVector.vectorResource(R.drawable.chat_bubble_off_24),
-                                    contentDescription = stringResource(R.string.no_topics),
-                                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                                )
-                                Spacer(modifier = Modifier.height(6.dp))
-                                Text(
-                                    stringResource(R.string.no_topics),
-                                    textAlign = TextAlign.Center,
-                                    style = MaterialTheme.typography.bodyMedium.copy(
-                                        color = MaterialTheme.colorScheme.onSurface.copy(
-                                            alpha = 0.5f
-                                        )
-                                    )
-                                )
-                            }
-                        }
-                    }
-
-                    items(
-                        items = state.topics ?: emptyList(),
-                        key = { topic -> topic.hashCode() }) { topic ->
-                        CreateTopicCard(
-                            topic = topic,
-                            onRemove = { topic -> onEvent(CreateStudyEvent.RemoveTopic(topic)) })
-                        Spacer(modifier = Modifier.padding(bottom = 6.dp))
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Text(
+                            stringResource(R.string.no_topics),
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                            )
+                        )
                     }
                 }
+
+                Spacer(modifier = Modifier.height(6.dp))
+            }
+
+            items(
+                items = state.topics ?: emptyList(),
+                key = { topic -> topic.hashCode() }
+            ) { topic ->
+                CreateTopicCard(
+                    topic = topic,
+                    onRemove = { topic -> onEvent(CreateStudyEvent.RemoveTopic(topic)) }
+                )
+                Spacer(modifier = Modifier.height(6.dp))
             }
         }
     }

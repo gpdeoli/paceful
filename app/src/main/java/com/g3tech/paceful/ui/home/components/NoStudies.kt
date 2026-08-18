@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.g3tech.paceful.R
@@ -50,8 +51,12 @@ fun NoStudies(
             contentDescription = null,
             tint = onPrimaryHalfOpacity
         )
-        Text(stringResource(R.string.no_studies_description), color = onPrimaryHalfOpacity)
-        Row(modifier = Modifier.clickable(onClick = { onEvent(HomeScreenEvent.NewStudyClick) })) {
+        Text(
+            textAlign = TextAlign.Center,
+            text = stringResource(R.string.no_studies_description),
+            color = onPrimaryHalfOpacity
+        )
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.clickable(onClick = { onEvent(HomeScreenEvent.NewStudyClick) })) {
             Box(
                 modifier = Modifier.background(
                     color = Color.Unspecified,
@@ -68,8 +73,12 @@ fun NoStudies(
             Text(stringResource(R.string.add_study_if_none), color = onPrimaryHalfOpacity)
         }
         if (!areThereSubjects) {
-            Text(stringResource(R.string.or), color = onPrimaryHalfOpacity)
-            Row(modifier = Modifier.clickable(onClick = { onEvent(HomeScreenEvent.NewSubjectClick) })) {
+            Text(
+                text = stringResource(R.string.or),
+                textAlign = TextAlign.Center,
+                color = onPrimaryHalfOpacity
+            )
+            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.clickable(onClick = { onEvent(HomeScreenEvent.NewSubjectClick) })) {
                 Box(
                     modifier = Modifier.background(
                         color = Color.Unspecified,
@@ -83,7 +92,11 @@ fun NoStudies(
                     )
                 }
                 Spacer(Modifier.width(4.dp))
-                Text(stringResource(R.string.add_subject_if_none), color = onPrimaryHalfOpacity)
+                Text(
+                    text = stringResource(R.string.add_subject_if_none),
+                    textAlign = TextAlign.Center,
+                    color = onPrimaryHalfOpacity
+                )
             }
         }
     }

@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
-import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -24,7 +24,12 @@ import com.g3tech.paceful.ui.study.createstudy.CreateStudyEvent
 import java.time.LocalDate
 
 @Composable
-fun TopicForm(name: String?, deadline: LocalDate?, enabled: Boolean, onEvent: (CreateStudyEvent) -> Unit) {
+fun TopicForm(
+    name: String?,
+    deadline: LocalDate?,
+    enabled: Boolean,
+    onEvent: (CreateStudyEvent) -> Unit
+) {
     Card(modifier = Modifier.fillMaxWidth()) {
         Column(
             modifier = Modifier
@@ -60,7 +65,7 @@ fun TopicForm(name: String?, deadline: LocalDate?, enabled: Boolean, onEvent: (C
             )
 
             Spacer(Modifier.height(12.dp))
-            FilledTonalButton(
+            OutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { onEvent(CreateStudyEvent.AddTopic) },
                 enabled = enabled

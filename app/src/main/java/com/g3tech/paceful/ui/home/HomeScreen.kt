@@ -6,12 +6,10 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FabPosition
 import androidx.compose.material3.LinearWavyProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -35,7 +33,6 @@ import com.g3tech.paceful.ui.home.components.Greeting
 import com.g3tech.paceful.ui.home.components.NoStudies
 import com.g3tech.paceful.ui.home.components.StatsValues
 import com.g3tech.paceful.ui.home.components.StudySection
-import com.g3tech.paceful.ui.shared.bottomappbar.BottomAppBar
 import com.g3tech.paceful.ui.shared.FabItem
 import com.g3tech.paceful.ui.shared.FabMenu
 import com.g3tech.paceful.ui.theme.AppTheme

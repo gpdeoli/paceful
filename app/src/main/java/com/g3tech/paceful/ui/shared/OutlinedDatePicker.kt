@@ -78,9 +78,8 @@ fun OutlinedDatePicker(
     if (showDatePicker) {
         val selectableDates = object : SelectableDates {
             override fun isSelectableDate(utcTimeMillis: Long): Boolean {
-                val today =
-                    LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
-                return utcTimeMillis >= today
+                val todayUtc = LocalDate.now().atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
+                return utcTimeMillis >= todayUtc
             }
         }
         val datePickerState = rememberDatePickerState(
