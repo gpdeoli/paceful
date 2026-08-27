@@ -37,6 +37,7 @@ fun OutlinedDatePicker(
     value: LocalDate?,
     label: String,
     pickerTitle: String = stringResource(R.string.select_date),
+    allowAnyDate: Boolean = false,
     onSelectedDate: (LocalDate) -> Unit
 ) {
     var showDatePicker by remember { mutableStateOf(false) }
@@ -76,10 +77,14 @@ fun OutlinedDatePicker(
     )
 
     if (showDatePicker) {
-        val selectableDates = object : SelectableDates {
-            override fun isSelectableDate(utcTimeMillis: Long): Boolean {
-                val todayUtc = LocalDate.now().atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
-                return utcTimeMillis >= todayUtc
+        val selectableDates = if (allowAnyDate) {
+            object : SelectableDates {}
+        } else {
+            object : SelectableDates {
+                override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+                    val todayUtc = LocalDate.now().atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
+                    return utcTimeMillis >= todayUtc
+                }
             }
         }
         val datePickerState = rememberDatePickerState(

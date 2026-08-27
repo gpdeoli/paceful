@@ -1,5 +1,6 @@
 package com.g3tech.paceful.di
 
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.NavKey
 import androidx.room.Room
 import com.g3tech.paceful.data.StudyRepositoryImpl
@@ -13,10 +14,13 @@ import com.g3tech.paceful.ui.home.HomeViewModel
 import com.g3tech.paceful.ui.navigation.Navigator
 import com.g3tech.paceful.ui.navigation.NavigatorImpl
 import com.g3tech.paceful.ui.study.createstudy.CreateStudyViewModel
+import com.g3tech.paceful.ui.study.studies.StudiesViewModel
 import com.g3tech.paceful.ui.subject.CreateSubjectViewModel
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
+import java.time.LocalDate
 
 val appModule = module {
     single<AppDatabase> {
@@ -44,4 +48,15 @@ val appModule = module {
     viewModelOf(::HomeViewModel)
     viewModelOf(::CreateSubjectViewModel)
     viewModelOf(::CreateStudyViewModel)
+    viewModel { params ->
+        StudiesViewModel(
+            subjectId = params.getOrNull(),
+            studyStatuses = params.getOrNull() ?: emptySet(),
+            startDate = params.get(i = 2),
+            endDate = params.get(i = 3),
+            studyRepository = get(),
+            subjectRepository = get(),
+            navigator = get()
+        )
+    }
 }

@@ -41,8 +41,12 @@ class HomeViewModel(
         when (event) {
             is HomeScreenEvent.NewStudyClick -> navigator.navigateTo(Routes.CreateStudyScreen)
             is HomeScreenEvent.NewSubjectClick -> navigator.navigateTo(Routes.CreateSubjectScreen)
-
-            else -> {}
+            is HomeScreenEvent.ViewAllClick -> navigator.navigateTo(Routes.StudyScreen(
+                subjectId = event.subjectId,
+                status = event.status,
+                startDate = event.startDate?.toString(),
+                endDate = event.endDate?.toString(),
+            ))
         }
     }
 

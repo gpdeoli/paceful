@@ -39,7 +39,7 @@ fun StudySection(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp, vertical = 1.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -48,7 +48,6 @@ fun StudySection(
                     text = title,
                     style = MaterialTheme.typography.titleLarge
                 )
-                Spacer(modifier = Modifier.height(4.dp))
             }
 
             if (!studies.isEmpty()) {

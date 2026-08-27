@@ -44,12 +44,12 @@ interface StudyDao {
     @Transaction
     suspend fun getStudiesWithSubjects(subjectsIds: List<Long>): List<SummaryStudy> =
         coroutineScope {
-            val defferedStudies = subjectsIds.map { subjectsId ->
+            val deferredStudies = subjectsIds.map { subjectsId ->
                 async {
                     getStudyWithSubject(subjectsId)
                 }
             }
-            defferedStudies.awaitAll().flatten()
+            deferredStudies.awaitAll().flatten()
         }
 
     @Query(
@@ -61,6 +61,27 @@ interface StudyDao {
 
     @Query("""SELECT * FROM study WHERE subject IS NULL LIMIT 5""")
     suspend fun getStudiesWithoutSubjects(): List<SummaryStudy>
+
+    @Transaction
+    @Query("""
+        SELECT * FROM study
+        WHERE status IN (:statusIds)
+        AND (:searchQuery IS NULL OR name LIKE '%' || :searchQuery || '%')
+        AND (:startDate IS NULL OR deadline >= :startDate)
+        AND (:endDate IS NULL OR deadline <= :endDate)
+        AND (:subjectId IS NULL OR subject = :subjectId)
+        ORDER BY deadline ASC
+        LIMIT :limit OFFSET :offset
+    """)
+    suspend fun getStudies(
+        statusIds: List<Long>,
+        searchQuery: String?,
+        startDate: String?,
+        endDate: String?,
+        subjectId: Long?,
+        limit: Int,
+        offset: Int,
+    ): List<SummaryStudy>
 
     @Query(
         """

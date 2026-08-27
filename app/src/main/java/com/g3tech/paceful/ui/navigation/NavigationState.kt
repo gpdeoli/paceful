@@ -27,44 +27,37 @@ class NavigationState(
 fun NavigationState.toEntries(
     entryProvider: (NavKey) -> NavEntry<NavKey>
 ): List<NavEntry<NavKey>> {
+    val decorators = listOf(
+        rememberSaveableStateHolderNavEntryDecorator<NavKey>(),
+        rememberViewModelStoreNavEntryDecorator(),
+    )
+
     val homeEntries = rememberDecoratedNavEntries(
         backStack = backStacks[Routes.HomeScreen] ?: emptyList(),
-        entryDecorators = listOf(
-            rememberSaveableStateHolderNavEntryDecorator(),
-            rememberViewModelStoreNavEntryDecorator()
-        ),
-        entryProvider = entryProvider
+        entryDecorators = decorators,
+        entryProvider = entryProvider,
     )
     val studyEntries = rememberDecoratedNavEntries(
-        backStack = backStacks[Routes.StudyScreen] ?: emptyList(),
-        entryDecorators = listOf(
-            rememberSaveableStateHolderNavEntryDecorator(),
-            rememberViewModelStoreNavEntryDecorator()
-        ),
-        entryProvider = entryProvider
+        backStack = backStacks[Routes.StudyScreen()] ?: emptyList(),
+        entryDecorators = decorators,
+        entryProvider = entryProvider,
     )
     val subjectEntries = rememberDecoratedNavEntries(
         backStack = backStacks[Routes.SubjectScreen] ?: emptyList(),
-        entryDecorators = listOf(
-            rememberSaveableStateHolderNavEntryDecorator(),
-            rememberViewModelStoreNavEntryDecorator()
-        ),
-        entryProvider = entryProvider
+        entryDecorators = decorators,
+        entryProvider = entryProvider,
     )
     val settingsEntries = rememberDecoratedNavEntries(
         backStack = backStacks[Routes.SettingsScreen] ?: emptyList(),
-        entryDecorators = listOf(
-            rememberSaveableStateHolderNavEntryDecorator(),
-            rememberViewModelStoreNavEntryDecorator()
-        ),
-        entryProvider = entryProvider
+        entryDecorators = decorators,
+        entryProvider = entryProvider,
     )
 
     val allEntries = mapOf(
         Routes.HomeScreen to homeEntries,
-        Routes.StudyScreen to studyEntries,
+        Routes.StudyScreen() to studyEntries,
         Routes.SubjectScreen to subjectEntries,
-        Routes.SettingsScreen to settingsEntries
+        Routes.SettingsScreen to settingsEntries,
     )
 
     return stacksInUse.flatMap { key -> allEntries[key] ?: emptyList() }

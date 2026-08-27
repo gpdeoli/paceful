@@ -17,6 +17,7 @@ interface SubjectDao {
         SELECT subject.id, subject.name, subject.description
         FROM subject
         INNER JOIN study ON subject.id = study.subject
+        GROUP BY subject.id
         LIMIT 3
         """
     )

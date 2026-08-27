@@ -137,7 +137,7 @@ class CreateStudyViewModel(
 
         viewModelScope.launch {
             val startDate = state.value.startDate
-            val studyStatusId = if (startDate == LocalDate.now()) {
+            val studyStatusId = if (startDate > LocalDate.now()) {
                 StudyStatus.SCHEDULED.id
             } else StudyStatus.PENDING.id
             val newStudy = CreateStudy(

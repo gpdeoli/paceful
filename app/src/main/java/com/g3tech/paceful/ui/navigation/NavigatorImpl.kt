@@ -7,7 +7,7 @@ class NavigatorImpl : Navigator<NavKey> {
 
     private val tabRoutes: Set<NavKey> = setOf(
         Routes.HomeScreen,
-        Routes.StudyScreen,
+        Routes.StudyScreen(),
         Routes.SubjectScreen,
         Routes.SettingsScreen
     )
@@ -18,6 +18,8 @@ class NavigatorImpl : Navigator<NavKey> {
         backStacks = tabRoutes.associateWith { route -> mutableStateListOf(route) }
     )
 
+    private val studyTabRoot = Routes.StudyScreen()
+
     override fun navigateTo(destination: NavKey) {
         if (destination in tabRoutes) {
             if (destination == navigationState.topLevelRoute) {
@@ -27,6 +29,9 @@ class NavigatorImpl : Navigator<NavKey> {
             } else {
                 navigationState.topLevelRoute = destination
             }
+        } else if (destination is Routes.StudyScreen) {
+            navigationState.topLevelRoute = studyTabRoot
+            navigationState.backStacks[studyTabRoot]?.add(destination)
         } else {
             navigationState.backStacks[navigationState.topLevelRoute]?.add(destination)
         }

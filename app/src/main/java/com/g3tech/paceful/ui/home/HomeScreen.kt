@@ -68,6 +68,7 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
                     containerColor = MaterialTheme.colorScheme.background,
                     scrolledContainerColor = MaterialTheme.colorScheme.background,
                 ),
+                windowInsets = WindowInsets(0, 0, 0, 0)
             )
         },
     ) { innerPadding ->
@@ -123,7 +124,18 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
                     StudySection(
                         title = stringResource(R.string.urgent_section_title),
                         studies = state.summaryData.urgentStudies,
-                        onViewAllClick = { onEvent(HomeScreenEvent.ViewAllClick(null)) }
+                        onViewAllClick = {
+                            onEvent(
+                                HomeScreenEvent.ViewAllClick(
+                                    startDate = LocalDate.now(),
+                                    endDate = LocalDate.now().plusDays(7),
+                                    status = setOf(
+                                        StudyStatus.PENDING, StudyStatus.IN_PROGRESS,
+                                        StudyStatus.SCHEDULED
+                                    )
+                                )
+                            )
+                        }
                     )
                 }
             }
@@ -133,7 +145,18 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
                     StudySection(
                         title = stringResource(R.string.overdue_section_title),
                         studies = state.summaryData.overdueStudies,
-                        onViewAllClick = { onEvent(HomeScreenEvent.ViewAllClick(null)) }
+                        onViewAllClick = {
+                            onEvent(
+                                HomeScreenEvent.ViewAllClick(
+                                    endDate = LocalDate.now().minusDays(1),
+                                    status = setOf(
+                                        StudyStatus.PENDING,
+                                        StudyStatus.SCHEDULED,
+                                        StudyStatus.IN_PROGRESS
+                                    )
+                                )
+                            )
+                        }
                     )
                 }
             }
@@ -143,7 +166,9 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
                 StudySection(
                     title = subject.name,
                     studies = studiesWithSubjects.filter { it.subject?.id == subject.id },
-                    onViewAllClick = {},
+                    onViewAllClick = {
+                        onEvent(HomeScreenEvent.ViewAllClick(subjectId = subject.id))
+                    },
                 )
             }
 
@@ -154,7 +179,9 @@ fun HomeScreen(state: HomeScreenState, onEvent: (HomeScreenEvent) -> Unit) {
                     StudySection(
                         title = stringResource(R.string.studies_without_subjects_section_title),
                         studies = summaryData.studiesWithoutSubjects,
-                        onViewAllClick = {},
+                        onViewAllClick = {
+                            onEvent(HomeScreenEvent.ViewAllClick())
+                        },
                     )
                 }
             }

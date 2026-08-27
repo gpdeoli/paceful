@@ -18,10 +18,14 @@ import com.g3tech.paceful.ui.home.HomeViewModel
 import com.g3tech.paceful.ui.shared.bottomappbar.BottomAppBar
 import com.g3tech.paceful.ui.study.createstudy.CreateStudyScreen
 import com.g3tech.paceful.ui.study.createstudy.CreateStudyViewModel
+import com.g3tech.paceful.ui.study.studies.StudiesScreen
+import com.g3tech.paceful.ui.study.studies.StudiesViewModel
 import com.g3tech.paceful.ui.subject.CreateSubjectScreen
 import com.g3tech.paceful.ui.subject.CreateSubjectViewModel
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
+import org.koin.core.parameter.parametersOf
+import java.time.LocalDate
 
 @Composable
 fun NavigationRoot() {
@@ -37,9 +41,16 @@ fun NavigationRoot() {
             }
 
             is Routes.StudyScreen -> NavEntry(key) {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text("Studies")
+                val viewModel: StudiesViewModel = koinViewModel {
+                    parametersOf(
+                        key.subjectId,
+                        key.status,
+                        key.startDate?.let { LocalDate.parse(it) },
+                        key.endDate?.let { LocalDate.parse(it) },
+                    )
                 }
+                val state by viewModel.state.collectAsStateWithLifecycle()
+                StudiesScreen(state = state, onEvent = viewModel::onEvent)
             }
 
             is Routes.SubjectScreen -> NavEntry(key) {

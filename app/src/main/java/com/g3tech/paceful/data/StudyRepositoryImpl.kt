@@ -4,7 +4,10 @@ import com.g3tech.paceful.data.db.daos.StudyDao
 import com.g3tech.paceful.data.db.daos.SubjectDao
 import com.g3tech.paceful.data.db.entities.toDbEntity
 import com.g3tech.paceful.domain.model.StudiesSummary
+import com.g3tech.paceful.domain.model.StudySummary
+import com.g3tech.paceful.domain.model.StudyStatus
 import com.g3tech.paceful.domain.model.input.CreateStudy
+import com.g3tech.paceful.domain.model.input.GetStudiesQueryParams
 import com.g3tech.paceful.domain.repositories.StudyRepository
 
 class StudyRepositoryImpl(
@@ -54,6 +57,28 @@ class StudyRepositoryImpl(
             return Result.success(studiesSummary)
         } catch (err: Exception) {
             return Result.failure(err)
+        }
+    }
+
+    override suspend fun getStudies(params: GetStudiesQueryParams): Result<List<StudySummary>> {
+        return try {
+            val statusIds = if (params.statuses.isEmpty())
+                StudyStatus.entries.map { it.id }
+            else
+                params.statuses.map { it.id }
+
+            val studies = studyDao.getStudies(
+                statusIds = statusIds,
+                searchQuery = if (params.searchQuery.isNullOrBlank()) null else params.searchQuery,
+                startDate = params.startDate?.toString(),
+                endDate = params.endDate?.toString(),
+                subjectId = params.subjectId,
+                limit = params.pageSize,
+                offset = params.page * params.pageSize,
+            ).map { it.toModel() }
+            Result.success(studies)
+        } catch (err: Exception) {
+            Result.failure(err)
         }
     }
 }

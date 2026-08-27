@@ -63,4 +63,14 @@
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="view_more">View more</string>
+
+    <string name="search">Search</string>
+    <string name="all">All</string>
+
+    <string name="filters">Filters</string>
+    <string name="apply_filters">Apply</string>
+    <string name="reset">Reset</string>
+    <string name="status">Status</string>
+    <string name="date_range">Date range</string>
+    <string name="end_date">End date</string>
 </resources>

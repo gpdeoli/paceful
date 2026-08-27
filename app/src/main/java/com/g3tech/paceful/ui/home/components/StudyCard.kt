@@ -27,7 +27,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -57,8 +56,8 @@ fun StudyCard(
 
     Surface(
         modifier = Modifier
-            .width(300.dp)
-            .padding(vertical = 8.dp),
+            .width(320.dp)
+            .padding(vertical = 1.dp),
         shape = RoundedCornerShape(48.dp),
         color = if (isDone) MaterialTheme.colorScheme.surfaceVariant
         else MaterialTheme.colorScheme.surface,
@@ -132,14 +131,18 @@ fun StudyCard(
                             ),
                         contentAlignment = Alignment.Center,
                     ) {
-                        Icon(
-                            painter = painterResource(R.drawable.arrow_down_24),
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier
-                                .size(16.dp)
-                                .rotate(270f),
-                        )
+                        IconButton(
+                            // TODO
+                            onClick = {}
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.arrow_right_24),
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier
+                                    .size(12.dp)
+                            )
+                        }
                     }
                 }
 
@@ -159,7 +162,7 @@ fun StudyCard(
                             style = MaterialTheme.typography.bodyMedium,
                         )
                         IconButton(
-                            onClick = { isCardOpen = false },
+                            onClick = { isCardOpen = !isCardOpen },
                             Modifier.size(24.dp))
                         {
                             Icon(
